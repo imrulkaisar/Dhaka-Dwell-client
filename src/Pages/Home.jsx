@@ -11,10 +11,12 @@
  * [TODO] 6. Note: Do other necessary beatifications of this section.
  */
 
+import Hero from "../Components/Homepage/Hero";
+
 const Home = () => {
   return (
-    <div>
-      <h2>Home</h2>
+    <div className="">
+      <Hero />
     </div>
   );
 };

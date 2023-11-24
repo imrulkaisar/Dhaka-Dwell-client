@@ -7,11 +7,42 @@
  * 3.
  */
 
+import { Link, NavLink } from "react-router-dom";
+import Logo from "../Components/Logo";
+import useAuth from "../Hooks/useAuth";
+
+import { FiUserPlus } from "react-icons/fi";
+
 const Header = () => {
+  const { user } = useAuth();
+
   return (
-    <div>
-      <h2>Header</h2>
-    </div>
+    <header className="py-5 text-white -mb-[90px]">
+      <div className="container-area flex justify-between items-center">
+        <Logo />
+        <div className="flex items-center justify-center gap-8">
+          <NavLink to="/apartments">
+            <span className="text-sm uppercase tracking-widest">
+              Our Apartments
+            </span>
+          </NavLink>
+          <div className="divider w-[2px] h-4 bg-white"></div>
+          <div className="user">
+            {user.email ? (
+              <>
+                <div className="">Logout</div>
+              </>
+            ) : (
+              <>
+                <Link to="/login">
+                  <FiUserPlus className="text-2xl" />
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </header>
   );
 };
 
