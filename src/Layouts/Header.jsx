@@ -17,7 +17,7 @@ const Header = () => {
   const { user } = useAuth();
 
   return (
-    <header className="py-5 text-white -mb-[90px]">
+    <header className="py-5 text-white -mb-[90px] relative">
       <div className="container-area flex justify-between items-center">
         <Logo />
         <div className="flex items-center justify-center gap-8">

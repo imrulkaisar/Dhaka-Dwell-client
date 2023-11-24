@@ -11,13 +11,14 @@ const Hero = () => {
     >
       <div className="min-h-[600px] bg-[rgba(0,0,0,0.6)] py-28 flex justify-center items-center text-white">
         <div className="text-center max-w-4xl space-y-5">
-          <h2 className="font-display font-semibold text-5xl leading-snug">
-            Discover Exceptional Living Spaces in Gulshan with DhakaDwell
+          <h2 className="section-heading">
+            Welcome to DhakaDwell: Your Gateway to Effortless Building
+            Management
           </h2>
           <p className="max-w-3xl mx-auto text-lg">
-            Explore our diverse range of thoughtfully designed apartments. Find
-            your ideal home and experience the ultimate in comfort and
-            convenience.
+            Experience the ease of managing your Gulshan property from the
+            comfort of your home. DhakaDwell brings convenience and control to
+            your fingertips.
           </p>
           <p></p>
           <Link

@@ -24,10 +24,15 @@
  * [TODO] 4. Note: Apply pagination at the bottom of this page. Every page will have a maximum of 6 apartment information. Rest will be on other pages following previous rule 6 apartment information in one page.
  */
 
+import PageHeader from "../Components/PageHeader";
+
 const Apartments = () => {
   return (
     <div>
-      <h2>All Apartments</h2>
+      <PageHeader
+        title="All Apartments"
+        description="Explore our diverse range of thoughtfully designed apartments. Find your ideal home and experience the ultimate in comfort and convenience."
+      />
     </div>
   );
 };
