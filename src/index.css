@@ -20,10 +20,10 @@
     @apply border border-secondary;
   }
   .btn-primary {
-    @apply hover:bg-primary border-primary hover:text-white;
+    @apply bg-primary border-primary text-white;
   }
   .btn-secondary {
-    @apply bg-secondary border-secondary hover:bg-primary hover:text-white;
+    @apply bg-secondary border-secondary hover:bg-primary text-white;
   }
   .sub-heading {
     @apply font-secondary tracking-[5px] uppercase text-lg;
