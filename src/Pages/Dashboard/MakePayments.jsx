@@ -19,10 +19,118 @@
  * [TODO] 4.  
  */
 
+import useAuth from "../../Hooks/useAuth";
+
 const MakePayments = () => {
+  const { user } = useAuth();
+
   return (
-    <div>
-      <h2>MakePayments</h2>
+    <div className="space-y-6">
+      <div className="space-y-2">
+        <h2 className="dashboard-heading">Make Payments</h2>
+        <p className="sub-heading">Secure and Convenient Rent Payment</p>
+      </div>
+      <form className="w-full max-w-2xl grid md:grid-cols-2 gap-x-8 gap-y-5">
+        <div className="form-group">
+          <label htmlFor="name" className="">
+            Member
+          </label>
+          <input
+            type="text"
+            className="form-input bg-white"
+            id="name"
+            name="name"
+            placeholder="Member"
+            defaultValue={user?.displayName}
+            readOnly={true}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="name" className="">
+            Email
+          </label>
+          <input
+            type="text"
+            className="form-input bg-white"
+            id="name"
+            name="name"
+            placeholder="Email"
+            defaultValue={user?.email}
+            readOnly={true}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="name" className="">
+            Floor
+          </label>
+          <input
+            type="text"
+            className="form-input bg-white"
+            id="name"
+            name="name"
+            placeholder="Floor"
+            defaultValue={`7`}
+            readOnly={true}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="name" className="">
+            Block name
+          </label>
+          <input
+            type="text"
+            className="form-input bg-white"
+            id="name"
+            name="name"
+            placeholder="Floor"
+            defaultValue={`7B`}
+            readOnly={true}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="name" className="">
+            Apartment no
+          </label>
+          <input
+            type="text"
+            className="form-input bg-white"
+            id="name"
+            name="name"
+            placeholder="Apartment no"
+            defaultValue={`702`}
+            readOnly={true}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="name" className="">
+            Month
+          </label>
+          <input
+            type="text"
+            className="form-input bg-white"
+            id="name"
+            name="name"
+            placeholder="Apartment no"
+            defaultValue={`December`}
+            readOnly={true}
+          />
+        </div>
+        <div className="form-group col-span-2">
+          <label htmlFor="name" className="">
+            Monthly Rent
+          </label>
+          <input
+            type="text"
+            className="form-input bg-white"
+            id="name"
+            name="name"
+            placeholder="Apartment no"
+            defaultValue={`৳15500`}
+            readOnly={true}
+          />
+        </div>
+        <button className="btn btn-primary">Pay rent</button>
+      </form>
     </div>
   );
 };

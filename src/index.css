@@ -26,16 +26,19 @@
     @apply bg-secondary border-secondary hover:bg-primary text-white;
   }
   .sub-heading {
-    @apply font-secondary tracking-[5px] uppercase text-lg;
+    @apply font-secondary text-secondary text-lg;
   }
   .section-heading {
     @apply font-display font-semibold text-5xl leading-none;
+  }
+  .dashboard-heading {
+    @apply font-display font-semibold text-4xl leading-none;
   }
   .form-group {
     @apply flex flex-col gap-1;
   }
   .form-input {
-    @apply bg-[#f3f3f3] px-4 py-2 focus:outline-none;
+    @apply bg-[#f3f3f3] px-4 py-2 focus:outline-none read-only:text-gray-400;
   }
 }
 
