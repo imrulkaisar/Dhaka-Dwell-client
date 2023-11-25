@@ -1,11 +1,37 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Divider from "../Components/Divider";
 import PageHeader from "../Components/PageHeader";
 import SocialLogin from "../Components/SocialLogin";
+import useAuth from "../Hooks/useAuth";
+import useToast from "../Hooks/useToast";
 
 const Login = () => {
-  const handleSubmit = (e) => {
+  const { logInWithEmailAndPassword, updateUser } = useAuth();
+  const { showToast } = useToast();
+  const navigate = useNavigate();
+
+  const location = useLocation();
+  const state = location.state || {};
+  const { pathname = "/", search = "" } = state;
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const form = e.target;
+
+    const email = form.email.value;
+    const password = form.password.value;
+
+    try {
+      const response = await logInWithEmailAndPassword(email, password);
+
+      if (response.user) {
+        showToast("success", "Welcome back!");
+
+        navigate(pathname + search);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <div>

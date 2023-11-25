@@ -7,14 +7,32 @@
  * 3.
  */
 
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Logo from "../Components/Logo";
 import useAuth from "../Hooks/useAuth";
 
 import { FiUserPlus } from "react-icons/fi";
+import { useEffect, useState } from "react";
 
 const Header = () => {
-  const { user } = useAuth();
+  const { user, loading, logOut } = useAuth();
+  const [showPopup, setShowPopup] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      setShowPopup(false);
+
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    setShowPopup(false);
+  }, [user]);
 
   return (
     <header className="py-5 text-white -mb-[90px] relative">
@@ -28,10 +46,33 @@ const Header = () => {
           </NavLink>
           <div className="divider w-[2px] h-4 bg-white"></div>
           <div className="user">
-            {user.email ? (
-              <>
-                <div className="">Logout</div>
-              </>
+            {!loading && user?.accessToken ? (
+              <div className="relative">
+                <button onClick={() => setShowPopup(!showPopup)}>
+                  <img
+                    className="w-10 aspect-square rounded-full bg-white p-[2px]"
+                    src={user?.photoURL}
+                    alt=""
+                  />
+                </button>
+                {showPopup && (
+                  <div className="absolute bg-white py-2 px-5 rounded-md text-secondary whitespace-nowrap right-0 space-y-2 min-w-[200px] border shadow-lg">
+                    <h4 className="text-lg font-semibold font-display">
+                      {user?.displayName}
+                    </h4>
+                    <hr />
+                    <div className="flex flex-col gap-2">
+                      <Link to="/dashboard">Dashboard</Link>
+                      <button
+                        className="text-sm w-full bg-dark text-white py-1 rounded-md"
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             ) : (
               <>
                 <Link to="/login">

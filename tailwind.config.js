@@ -8,7 +8,7 @@ export default {
         primaryShadow: "#c7b39a",
         secondary: "#4c4c4c",
         bgGray: "#f2f2f2",
-        dark: "201709",
+        dark: "#201709",
       },
       fontFamily: {
         display: "'Exo 2', sans-serif",

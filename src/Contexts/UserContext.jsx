@@ -55,6 +55,7 @@ const UserContextProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         console.log("Currently Logged In: ", currentUser);
+        setUser(currentUser);
         setLoading(false);
 
         // // get token and store client
@@ -69,6 +70,7 @@ const UserContextProvider = ({ children }) => {
         console.log("User logged out!");
 
         // localStorage.removeItem("accessToken");
+        setUser({});
         setLoading(false);
       }
     });
@@ -87,6 +89,8 @@ const UserContextProvider = ({ children }) => {
     updateUser,
     logOut,
   };
+
+  console.log(Object.keys(authInfo).join(", "));
 
   // Provide the context value to the components
   return (
