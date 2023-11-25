@@ -9,6 +9,7 @@ export default {
         secondary: "#4c4c4c",
         bgGray: "#f2f2f2",
         dark: "#201709",
+        overlay: "rgba(0, 0, 0, 0.7)",
       },
       fontFamily: {
         display: "'Exo 2', sans-serif",
