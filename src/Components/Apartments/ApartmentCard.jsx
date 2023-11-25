@@ -16,14 +16,17 @@ const ApartmentCard = ({ data }) => {
       <div className="px-5 py-3 flex-grow space-y-2">
         <h4 className="font-semibold font-display">{name}</h4>
         <div className="text-xs">{description}</div>
-        <div className="flex flex-wrap gap-x-2 text-sm text-gray-500 pt-2 border-t">
-          <span>{details?.rooms} Rooms</span>
-          <span>{details?.kitchen} Kitchens</span>
-          <span>{details?.balconies} Balconies</span>
-          <span>
-            {details?.toilets?.common + details?.toilets?.attached} Toilets
-          </span>
-        </div>
+        <ul className="flex gap-x-5 flex-wrap gap-y-1 text-sm list-disc list-inside marker:text-primary">
+          <li>
+            Floor: <b>{floor}</b>
+          </li>
+          <li>
+            Block: <b>{block}</b>
+          </li>
+          <li>
+            Apartment No: <b>{number}</b>
+          </li>
+        </ul>
       </div>
       <div className="p-5 flex flex-col justify-center items-center gap-5 border-l">
         <p className="text-xl font-medium">৳{rent}</p>

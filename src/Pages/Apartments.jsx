@@ -3,7 +3,7 @@
  * Requirements
  * ==============================
  *
- * [TODO] 1. You have to show all the rooms here with following information:
+ * [Done] 1. You have to show all the rooms here with following information:
             A. Apartment image
             B. Floor no
             C. Block name
@@ -11,7 +11,7 @@
             E. Rent
             F. Agreement button
 
- * [TODO] 2. Note: You have to store rooms information in the database manually.
+ * [Done] 2. Note: You have to store rooms information in the database manually.
  * [TODO] 3. On clicking on the agreement button the data will be stored in the database with following information:
             A. User name(who want to make an agreement/logged in user)
             B. User email(who want to make an agreement/logged in user)

@@ -29,7 +29,7 @@
     @apply font-secondary tracking-[5px] uppercase text-lg;
   }
   .section-heading {
-    @apply font-display font-semibold text-5xl leading-snug;
+    @apply font-display font-semibold text-5xl leading-none;
   }
   .form-group {
     @apply flex flex-col gap-1;
