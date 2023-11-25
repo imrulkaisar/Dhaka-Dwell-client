@@ -62,7 +62,7 @@ const Header = () => {
                     </h4>
                     <hr />
                     <div className="flex flex-col gap-2">
-                      <Link to="/dashboard">Dashboard</Link>
+                      <Link to="/dashboard/index">Dashboard</Link>
                       <button
                         className="text-sm w-full bg-dark text-white py-1 rounded-md"
                         onClick={handleLogout}

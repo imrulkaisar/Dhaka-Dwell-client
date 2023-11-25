@@ -27,12 +27,19 @@
  */
 
 import { Outlet } from "react-router-dom";
+import SideBar from "./SideBar";
+import DashboardHeader from "./DashboardHeader";
 
 const Dashboard = () => {
   return (
-    <div>
-      <h2>Dashboard</h2>
-      <Outlet />
+    <div className="flex bg-gray-100 min-h-screen">
+      <SideBar />
+      <div className="flex-grow text-gray-800">
+        <DashboardHeader />
+        <main className="p-6 sm:p-10">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 };

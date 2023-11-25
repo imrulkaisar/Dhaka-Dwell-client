@@ -17,7 +17,7 @@ const Register = () => {
 
   const location = useLocation();
   const state = location.state || {};
-  const { pathname = "/", search = "" } = state;
+  const { pathname = "/dashboard/index", search = "" } = state;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
