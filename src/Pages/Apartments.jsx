@@ -30,20 +30,27 @@ import useAxiosPublic from "../Hooks/useAxiosPublic";
 import ApartmentCard from "../Components/Apartments/ApartmentCard";
 
 const Apartments = () => {
+  const axiosPublic = useAxiosPublic();
+
+  const loadApartments = async () => {
+    try {
+      const res = await axiosPublic.get("/apartments/get-all");
+      return res.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const { data: apartments = [], isPending } = useQuery({
     queryKey: ["apartment"],
-    queryFn: async () => {
-      try {
-        const response = await fetch("apartments.json");
-        const result = await response.json(); // Parse the JSON data
-        return result;
-      } catch (error) {
-        console.error(error);
-      }
-    },
+    queryFn: loadApartments,
   });
 
   console.log(apartments);
+
+  // useEffect(() => {
+  //   console.log(loadApartments());
+  // }, []);
 
   return (
     <div>

@@ -1,13 +1,12 @@
 [
   {
     "name": "Sunset View Residence",
-    "_id": "1",
     "image": "https://tinyurl.com/3msfsz84",
     "floor": 5,
     "block": "A",
     "number": "101",
     "description": "Modern apartment with stunning views. Perfect for contemporary living.",
-    "details": {
+    "facilities": {
       "rooms": 3,
       "kitchen": 1,
       "toilets": { "common": 1, "attached": 2 },
@@ -19,13 +18,12 @@
   },
   {
     "name": "Cozy Corner Apartments",
-    "_id": "2",
     "image": "https://tinyurl.com/y9mdj6uz",
     "floor": 2,
     "block": "B",
     "number": "205",
     "description": "Cozy 2-bedroom apartment. Ideal for small families with convenient access to local amenities.",
-    "details": {
+    "facilities": {
       "rooms": 2,
       "kitchen": 1,
       "toilets": { "common": 1, "attached": 1 },
@@ -37,13 +35,12 @@
   },
   {
     "name": "Harmony Heights",
-    "_id": "3",
     "image": "https://tinyurl.com/s92beuwc",
     "floor": 7,
     "block": "C",
     "number": "307",
     "description": "Spacious 3-bedroom apartment with contemporary design. Ample natural light and a welcoming ambiance.",
-    "details": {
+    "facilities": {
       "rooms": 4,
       "kitchen": 1,
       "toilets": { "common": 1, "attached": 2 },
@@ -55,13 +52,12 @@
   },
   {
     "name": "Serene Haven",
-    "_id": "4",
     "image": "https://tinyurl.com/5n88cr26",
     "floor": 3,
     "block": "A",
     "number": "402",
     "description": "Charming 1-bedroom apartment. Thoughtfully designed for comfort.",
-    "details": {
+    "facilities": {
       "rooms": 2,
       "kitchen": 1,
       "toilets": { "common": 1, "attached": 1 },
@@ -73,13 +69,12 @@
   },
   {
     "name": "Urban Oasis",
-    "_id": "5",
     "image": "https://tinyurl.com/cz3uxyj7",
     "floor": 6,
     "block": "B",
     "number": "502",
     "description": "Modern 2-bedroom apartment. Stylish interiors perfect for urban living.",
-    "details": {
+    "facilities": {
       "rooms": 3,
       "kitchen": 1,
       "toilets": { "common": 1, "attached": 1 },
@@ -91,13 +86,12 @@
   },
   {
     "name": "Regal Residency",
-    "_id": "6",
     "image": "https://tinyurl.com/bdbwx2x9",
     "floor": 4,
     "block": "C",
     "number": "601",
     "description": "Elegant 3-bedroom apartment with spacious rooms and high-quality finishes.",
-    "details": {
+    "facilities": {
       "rooms": 4,
       "kitchen": 1,
       "toilets": { "common": 1, "attached": 2 },
@@ -109,13 +103,12 @@
   },
   {
     "name": "Pinnacle Penthouse",
-    "_id": "7",
     "image": "https://tinyurl.com/jzda9dwz",
     "floor": 8,
     "block": "A",
     "number": "703",
     "description": "Penthouse with breathtaking views. 2 bedrooms and a blend of comfort and sophistication.",
-    "details": {
+    "facilities": {
       "rooms": 3,
       "kitchen": 1,
       "toilets": { "common": 1, "attached": 1 },
@@ -127,13 +120,12 @@
   },
   {
     "name": "Affordable Abode",
-    "_id": "8",
     "image": "https://tinyurl.com/5yz6226c",
     "floor": 1,
     "block": "B",
     "number": "801",
     "description": "Affordable 1-bedroom apartment. Cozy and budget-friendly option.",
-    "details": {
+    "facilities": {
       "rooms": 2,
       "kitchen": 1,
       "toilets": { "common": 1, "attached": 1 },
@@ -145,13 +137,12 @@
   },
   {
     "name": "Grandeur Gardens",
-    "_id": "9",
     "image": "https://tinyurl.com/4cx43naz",
     "floor": 3,
     "block": "C",
     "number": "902",
     "description": "Luxurious 4-bedroom apartment with modern amenities. Ideal for a large family.",
-    "details": {
+    "facilities": {
       "rooms": 5,
       "kitchen": 1,
       "toilets": { "common": 1, "attached": 3 },
@@ -163,13 +154,12 @@
   },
   {
     "name": "Skyline Suites",
-    "_id": "10",
     "image": "https://tinyurl.com/3rumvv4s",
     "floor": 5,
     "block": "A",
     "number": "1001",
     "description": "Stylish 2-bedroom apartment with contemporary design. Perfect for young professionals.",
-    "details": {
+    "facilities": {
       "rooms": 2,
       "kitchen": 1,
       "toilets": { "common": 1, "attached": 1 },
@@ -181,13 +171,12 @@
   },
   {
     "name": "Modern Marvel",
-    "_id": "11",
     "image": "https://tinyurl.com/2pakf8tx",
     "floor": 6,
     "block": "B",
     "number": "1105",
     "description": "Contemporary 3-bedroom apartment with modern interiors. Comfortable and spacious.",
-    "details": {
+    "facilities": {
       "rooms": 4,
       "kitchen": 1,
       "toilets": { "common": 1, "attached": 2 },
@@ -199,13 +188,12 @@
   },
   {
     "name": "Classic Comforts",
-    "_id": "12",
     "image": "https://tinyurl.com/2pakf8tx",
     "floor": 2,
     "block": "C",
     "number": "1207",
     "description": "Classic 1-bedroom apartment with timeless appeal. Suitable for a single professional.",
-    "details": {
+    "facilities": {
       "rooms": 2,
       "kitchen": 1,
       "toilets": { "common": 1, "attached": 1 },
@@ -217,13 +205,12 @@
   },
   {
     "name": "Panoramic Prestige",
-    "_id": "13",
     "image": "https://tinyurl.com/s92beuwc",
     "floor": 7,
     "block": "A",
     "number": "1303",
     "description": "Elegant 4-bedroom apartment with panoramic city views. A blend of luxury and sophistication.",
-    "details": {
+    "facilities": {
       "rooms": 5,
       "kitchen": 1,
       "toilets": { "common": 1, "attached": 3 },
@@ -235,13 +222,12 @@
   },
   {
     "name": "Vibrant Living",
-    "_id": "14",
     "image": "https://tinyurl.com/3msfsz84",
     "floor": 4,
     "block": "B",
     "number": "1406",
     "description": "Modern 2-bedroom apartment with a vibrant atmosphere. Conveniently located for urban living.",
-    "details": {
+    "facilities": {
       "rooms": 3,
       "kitchen": 1,
       "toilets": { "common": 1, "attached": 1 },
@@ -253,13 +239,12 @@
   },
   {
     "name": "Penthouse Perfection",
-    "_id": "15",
     "image": "https://tinyurl.com/5n88cr26",
     "floor": 8,
     "block": "C",
     "number": "1502",
     "description": "Luxurious penthouse with modern amenities. Spacious and perfect for a high-end lifestyle.",
-    "details": {
+    "facilities": {
       "rooms": 4,
       "kitchen": 1,
       "toilets": { "common": 1, "attached": 2 },

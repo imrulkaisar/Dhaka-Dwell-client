@@ -18,6 +18,7 @@ const UserContextProvider = ({ children }) => {
   // State to store user information and loading status
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
+  const axiosPublic = useAxiosPublic();
 
   // Function to create a new user account
   const createUser = (email, password) => {
@@ -52,24 +53,26 @@ const UserContextProvider = ({ children }) => {
 
   // useEffect to listen for authentication state changes
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         console.log("Currently Logged In: ", currentUser);
         setUser(currentUser);
         setLoading(false);
 
-        // // get token and store client
-        // const userInfo = { email: currentUser.email };
-        // useAxiosPublic.post("/jwt", userInfo).then((res) => {
-        //   if (res.data.token) {
-        //     localStorage.setItem("accessToken", res.data.token);
-        //     setLoading(false);
-        //   }
-        // });
+        // get token and store client
+        const userInfo = { email: currentUser.email };
+
+        const res = await axiosPublic.post("/jwt", userInfo);
+        if (res.data.token) {
+          localStorage.setItem("accessToken", res.data.token);
+          setLoading(false);
+        } else {
+          console.log("JWT Token creating error");
+        }
       } else {
         console.log("User logged out!");
 
-        // localStorage.removeItem("accessToken");
+        localStorage.removeItem("accessToken");
         setUser({});
         setLoading(false);
       }
