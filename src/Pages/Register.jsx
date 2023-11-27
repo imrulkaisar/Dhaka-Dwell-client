@@ -6,10 +6,12 @@ import vectorImg from "./../assets/images/login.png";
 import useAuth from "../Hooks/useAuth";
 import { useState } from "react";
 import useToast from "../Hooks/useToast";
+import useCreateMember from "../Hooks/useCreateMember";
 
 const Register = () => {
   const { createUser, updateUser } = useAuth();
   const { showToast } = useToast();
+  const createMember = useCreateMember();
 
   const defaultUserImage = "https://tinyurl.com/2hazwtup";
   const [profileImg, setProfileImg] = useState(defaultUserImage);
@@ -28,6 +30,12 @@ const Register = () => {
     const email = form.email.value;
     const password = form.password.value;
 
+    const memberData = {
+      name,
+      email,
+      role: "user",
+    };
+
     try {
       const response = await createUser(email, password);
 
@@ -36,6 +44,9 @@ const Register = () => {
           displayName: name,
           photoURL,
         });
+
+        // insert user data to the database
+        await createMember(memberData);
 
         showToast("success", "User crated successfully!");
 
