@@ -1,9 +1,28 @@
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 
 const DashboardHeader = () => {
   const { user, logOut } = useAuth();
+  const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
+
+  const loadMemberDetails = async () => {
+    try {
+      const res = await axiosPublic.get(`/members/member?email=${user.email}`);
+      return res.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const { data: member = {}, isPending } = useQuery({
+    queryKey: ["member", user.email],
+    queryFn: loadMemberDetails,
+  });
+
+  // console.log(member);
 
   const handleLogout = async () => {
     try {
@@ -14,6 +33,7 @@ const DashboardHeader = () => {
       console.error(error);
     }
   };
+
   return (
     <header className="flex items-center h-20 px-6 sm:px-10 bg-white">
       <button className="block sm:hidden relative flex-shrink-0 p-2 mr-2 text-gray-600 hover:bg-gray-100 hover:text-gray-800 focus:bg-gray-100 focus:text-gray-800 rounded-full">
@@ -57,8 +77,12 @@ const DashboardHeader = () => {
         <button className="inline-flex items-center p-2 hover:bg-gray-100 focus:bg-gray-100 rounded-lg">
           <span className="sr-only">User Menu</span>
           <div className="hidden md:flex md:flex-col md:items-end md:leading-tight">
-            <span className="font-semibold">{user?.displayName}</span>
-            <span className="text-sm text-gray-600">Admin</span>
+            <span className="font-semibold capitalize">
+              {isPending ? "Loading" : member?.name}
+            </span>
+            <span className="text-sm text-gray-600 capitalize">
+              {isPending ? "Loading" : member?.role}
+            </span>
           </div>
           <span className="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
             <img

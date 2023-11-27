@@ -54,6 +54,8 @@ const Register = () => {
       }
     } catch (error) {
       console.error(error);
+
+      showToast("error", error.message);
     }
   };
   return (
@@ -122,7 +124,7 @@ const Register = () => {
                 />
               </div>
               <button className="btn btn-primary w-full hover:bg-primaryShadow">
-                Login
+                Create account
               </button>
             </form>
             <Divider text="sign in with" />
