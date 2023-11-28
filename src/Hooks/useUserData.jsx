@@ -23,10 +23,21 @@ const useUserData = () => {
 
   const { _id, name, email, role, apartmentIds, registerDate } = member || {};
 
-  if (isPending) return;
+  if (isPending) {
+    // Return a loading state or a default user object
+    return {
+      isPending: true,
+      _id: "loading",
+      name: "loading",
+      email: "loading@example.com",
+      role: "user",
+      apartmentIds: [],
+      registerDate: null,
+    };
+  }
 
   return {
-    isPending,
+    isPending: false,
     _id,
     name,
     image,

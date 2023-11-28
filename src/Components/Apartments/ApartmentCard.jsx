@@ -1,12 +1,49 @@
+/* eslint-disable react/prop-types */
 import useModal from "../../Contexts/useModal";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useToast from "../../Hooks/useToast";
+import useUserData from "../../Hooks/useUserData";
 import Divider from "../Divider";
 import Modal from "../Modal";
 
 const ApartmentCard = ({ data }) => {
-  const { _id, name, image, floor, block, number, description, details, rent } =
-    data;
+  const {
+    _id: apartmentId,
+    name,
+    image,
+    floor,
+    block,
+    number,
+    description,
+    details,
+    rent,
+  } = data || {};
+
+  const { _id: memberId = "" } = useUserData({});
 
   const { isOpen, openModal, closeModal } = useModal();
+  const axiosPublic = useAxiosPublic();
+  const { showToast } = useToast();
+
+  const handleSendRequest = async () => {
+    const agreementData = {
+      apartmentId,
+      memberId,
+    };
+
+    try {
+      const res = await axiosPublic.post("/agreements/request", agreementData);
+
+      if (res.data.success) {
+        closeModal();
+        showToast("success", "Request send to admin!");
+      } else {
+        showToast("error", "Something wrong. Please try again.");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // console.log(Object.keys(data.details.gasFacilities).join(", "));
 
@@ -69,7 +106,9 @@ const ApartmentCard = ({ data }) => {
             </ul>
 
             <p className="font-semibold text-xl">Monthly Rent: ৳{rent}</p>
-            <button className="btn btn-primary">Send Request</button>
+            <button onClick={handleSendRequest} className="btn btn-primary">
+              Send Request
+            </button>
           </div>
         </Modal>
       )}
