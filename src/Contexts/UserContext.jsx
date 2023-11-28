@@ -6,6 +6,7 @@ import {
   signInWithPopup,
   signOut,
   updateProfile,
+  deleteUser as deleteFirebaseUser,
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../Authentication/Firebase.config";
@@ -51,6 +52,19 @@ const UserContextProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  // delete user
+  const deleteUser = async () => {
+    setLoading(true);
+    try {
+      await deleteFirebaseUser(auth.currentUser);
+      setUser({});
+      setLoading(false);
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      setLoading(false);
+    }
+  };
+
   // useEffect to listen for authentication state changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -91,6 +105,7 @@ const UserContextProvider = ({ children }) => {
     signInWithGoogle,
     updateUser,
     logOut,
+    deleteUser,
   };
 
   console.log(Object.keys(authInfo).join(", "));

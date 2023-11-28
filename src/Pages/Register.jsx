@@ -30,12 +30,6 @@ const Register = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    const memberData = {
-      name,
-      email,
-      role: "user",
-    };
-
     try {
       const response = await createUser(email, password);
 
@@ -44,6 +38,13 @@ const Register = () => {
           displayName: name,
           photoURL,
         });
+
+        const memberData = {
+          name,
+          email,
+          image: photoURL,
+          role: "user",
+        };
 
         // insert user data to the database
         await createMember(memberData);

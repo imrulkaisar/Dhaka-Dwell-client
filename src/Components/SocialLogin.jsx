@@ -23,8 +23,11 @@ const SocialLogin = () => {
           const memberData = {
             name: res.user.displayName,
             email: res.user.email,
+            image: res.user.photoURL,
             role: "user",
           };
+
+          console.log(memberData);
 
           // check if user already exist on the database;
           const isExistsCheck = await axiosPublic.get(
