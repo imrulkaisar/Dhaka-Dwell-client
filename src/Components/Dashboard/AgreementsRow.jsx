@@ -13,7 +13,7 @@ const AgreementsRow = ({ data }) => {
   const { showToast } = useToast();
   const queryClient = useQueryClient();
 
-  console.log(Object.keys(data).join(", "));
+  // console.log(Object.keys(data).join(", "));
 
   const { data: apartment = {}, isPending: isApartmentLoading } = useQuery({
     queryKey: ["apartment details", apartmentId],
@@ -46,12 +46,27 @@ const AgreementsRow = ({ data }) => {
     enabled: !!data,
   });
 
+  const changeUserRole = async () => {
+    const res = await axiosPublic.patch(`/members/change-role/${member._id}`, {
+      userRole: "member",
+    });
+
+    if (res.data.success) {
+      console.log("User updated!");
+    }
+  };
+
   const handleAccept = async () => {
     try {
       const res = await axiosPublic.patch(`/agreements/update/${_id}`);
 
       if (res.data.success) {
         queryClient.invalidateQueries("all agreements");
+        queryClient.invalidateQueries("all members");
+
+        if (member.role !== "admin") {
+          await changeUserRole();
+        }
         showToast("success", "Agreement accepted!");
       } else showToast("error", "Something wrong. Try again.");
     } catch (error) {
