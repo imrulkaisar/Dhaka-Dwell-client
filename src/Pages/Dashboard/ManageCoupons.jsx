@@ -11,7 +11,31 @@
  * [TODO] 4. [Bonus] The admin/owner will be able to change the availability of a coupon.
  */
 
+import { useQuery } from "@tanstack/react-query";
+import AddCouponForm from "../../Components/Dashboard/AddCouponForm";
+import Modal from "../../Components/Modal";
+import useModal from "../../Contexts/useModal";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import CouponRow from "../../Components/Dashboard/CouponRow";
+
 const ManageCoupons = () => {
+  const { isOpen, openModal, closeModal } = useModal();
+  const axiosPublic = useAxiosPublic();
+
+  const { data: coupons = [] } = useQuery({
+    queryKey: ["all coupons"],
+    queryFn: async () => {
+      try {
+        const res = await axiosPublic.get("/coupons/get-all");
+
+        return res.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  });
+
+  console.log(coupons);
   return (
     <div className="space-y-6">
       <div className="space-y-2">
@@ -27,144 +51,24 @@ const ManageCoupons = () => {
         <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
           <div>
             <button
-              id="dropdownRadioButton"
+              onClick={openModal}
               data-dropdown-toggle="dropdownRadio"
-              className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5"
+              className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 capitalize"
               type="button"
             >
-              <svg
-                className="w-3 h-3 text-gray-500 dark:text-gray-400 me-3"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
-              </svg>
-              Last 30 days
-              <svg
-                className="w-2.5 h-2.5 ms-2.5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 10 6"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="m1 1 4 4 4-4"
-                />
-              </svg>
+              Add new coupon
             </button>
-            {/* Dropdown menu */}
-            <div
-              id="dropdownRadio"
-              className="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow"
-              data-popper-reference-hidden=""
-              data-popper-escaped=""
-              data-popper-placement="top"
-              style={{
-                position: "absolute",
-                inset: "auto auto 0px 0px",
-                margin: 0,
-                transform: "translate3d(522.5px, 3847.5px, 0px)",
-              }}
-            >
-              <ul
-                className="p-3 space-y-1 text-sm text-gray-700"
-                aria-labelledby="dropdownRadioButton"
-              >
-                <li>
-                  <div className="flex items-center p-2 rounded hover:bg-gray-100">
-                    <input
-                      id="filter-radio-example-1"
-                      type="radio"
-                      defaultValue=""
-                      name="filter-radio"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
-                    />
-                    <label
-                      htmlFor="filter-radio-example-1"
-                      className="w-full ms-2 text-sm font-medium text-gray-900 rounded"
-                    >
-                      Last day
-                    </label>
-                  </div>
-                </li>
-                <li>
-                  <div className="flex items-center p-2 rounded hover:bg-gray-100">
-                    <input
-                      defaultChecked=""
-                      id="filter-radio-example-2"
-                      type="radio"
-                      defaultValue=""
-                      name="filter-radio"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600"
-                    />
-                    <label
-                      htmlFor="filter-radio-example-2"
-                      className="w-full ms-2 text-sm font-medium text-gray-900 rounded"
-                    >
-                      Last 7 days
-                    </label>
-                  </div>
-                </li>
-                <li>
-                  <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                    <input
-                      id="filter-radio-example-3"
-                      type="radio"
-                      defaultValue=""
-                      name="filter-radio"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
-                    />
-                    <label
-                      htmlFor="filter-radio-example-3"
-                      className="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
-                    >
-                      Last 30 days
-                    </label>
-                  </div>
-                </li>
-                <li>
-                  <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                    <input
-                      id="filter-radio-example-4"
-                      type="radio"
-                      defaultValue=""
-                      name="filter-radio"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
-                    />
-                    <label
-                      htmlFor="filter-radio-example-4"
-                      className="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
-                    >
-                      Last month
-                    </label>
-                  </div>
-                </li>
-                <li>
-                  <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                    <input
-                      id="filter-radio-example-5"
-                      type="radio"
-                      defaultValue=""
-                      name="filter-radio"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
-                    />
-                    <label
-                      htmlFor="filter-radio-example-5"
-                      className="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
-                    >
-                      Last year
-                    </label>
-                  </div>
-                </li>
-              </ul>
-            </div>
           </div>
+
+          {isOpen && (
+            <Modal onClose={closeModal}>
+              <div className="space-y-4">
+                <h3 className="dashboard-heading">Add new Coupon</h3>
+                <AddCouponForm />
+              </div>
+            </Modal>
+          )}
+
           <label htmlFor="table-search" className="sr-only">
             Search
           </label>
@@ -208,209 +112,26 @@ const ManageCoupons = () => {
                 </div>
               </th>
               <th scope="col" className="px-6 py-3">
-                Product name
+                Coupon Code
               </th>
               <th scope="col" className="px-6 py-3">
-                Color
+                Discount Amount
               </th>
               <th scope="col" className="px-6 py-3">
-                Category
+                Discount Type
               </th>
               <th scope="col" className="px-6 py-3">
-                Price
+                Expire Date
               </th>
               <th scope="col" className="px-6 py-3">
-                Action
+                Max Use
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white border-b">
-              <td className="w-4 p-4">
-                <div className="flex items-center">
-                  <input
-                    id="checkbox-table-search-1"
-                    type="checkbox"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                  <label htmlFor="checkbox-table-search-1" className="sr-only">
-                    checkbox
-                  </label>
-                </div>
-              </td>
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-              >
-                Apple MacBook Pro 17"
-              </th>
-              <td className="px-6 py-4">Silver</td>
-              <td className="px-6 py-4">Laptop</td>
-              <td className="px-6 py-4">$2999</td>
-              <td className="px-6 py-4">
-                <a
-                  href="#"
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                >
-                  Edit
-                </a>
-              </td>
-            </tr>
-            <tr className="bg-white border-b">
-              <td className="w-4 p-4">
-                <div className="flex items-center">
-                  <input
-                    id="checkbox-table-search-2"
-                    type="checkbox"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                  <label htmlFor="checkbox-table-search-2" className="sr-only">
-                    checkbox
-                  </label>
-                </div>
-              </td>
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-              >
-                Microsoft Surface Pro
-              </th>
-              <td className="px-6 py-4">White</td>
-              <td className="px-6 py-4">Laptop PC</td>
-              <td className="px-6 py-4">$1999</td>
-              <td className="px-6 py-4">
-                <a
-                  href="#"
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                >
-                  Edit
-                </a>
-              </td>
-            </tr>
-            <tr className="bg-white border-b">
-              <td className="w-4 p-4">
-                <div className="flex items-center">
-                  <input
-                    id="checkbox-table-search-3"
-                    type="checkbox"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                  <label htmlFor="checkbox-table-search-3" className="sr-only">
-                    checkbox
-                  </label>
-                </div>
-              </td>
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-              >
-                Magic Mouse 2
-              </th>
-              <td className="px-6 py-4">Black</td>
-              <td className="px-6 py-4">Accessories</td>
-              <td className="px-6 py-4">$99</td>
-              <td className="px-6 py-4">
-                <a
-                  href="#"
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                >
-                  Edit
-                </a>
-              </td>
-            </tr>
-            <tr className="bg-white border-b">
-              <td className="w-4 p-4">
-                <div className="flex items-center">
-                  <input
-                    id="checkbox-table-3"
-                    type="checkbox"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                  <label htmlFor="checkbox-table-3" className="sr-only">
-                    checkbox
-                  </label>
-                </div>
-              </td>
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-              >
-                Apple Watch
-              </th>
-              <td className="px-6 py-4">Silver</td>
-              <td className="px-6 py-4">Accessories</td>
-              <td className="px-6 py-4">$179</td>
-              <td className="px-6 py-4">
-                <a
-                  href="#"
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                >
-                  Edit
-                </a>
-              </td>
-            </tr>
-            <tr className="bg-white border-b">
-              <td className="w-4 p-4">
-                <div className="flex items-center">
-                  <input
-                    id="checkbox-table-3"
-                    type="checkbox"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                  <label htmlFor="checkbox-table-3" className="sr-only">
-                    checkbox
-                  </label>
-                </div>
-              </td>
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-              >
-                iPad
-              </th>
-              <td className="px-6 py-4">Gold</td>
-              <td className="px-6 py-4">Tablet</td>
-              <td className="px-6 py-4">$699</td>
-              <td className="px-6 py-4">
-                <a
-                  href="#"
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                >
-                  Edit
-                </a>
-              </td>
-            </tr>
-            <tr className="bg-gray-800 text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <td className="w-4 p-4">
-                <div className="flex items-center">
-                  <input
-                    id="checkbox-table-3"
-                    type="checkbox"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                  <label htmlFor="checkbox-table-3" className="sr-only">
-                    checkbox
-                  </label>
-                </div>
-              </td>
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-300 whitespace-nowrap"
-              >
-                Apple iMac 27"
-              </th>
-              <td className="px-6 py-4">Silver</td>
-              <td className="px-6 py-4">PC Desktop</td>
-              <td className="px-6 py-4">$3999</td>
-              <td className="px-6 py-4">
-                <a
-                  href="#"
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                >
-                  Edit
-                </a>
-              </td>
-            </tr>
+            {coupons.map((coupon) => (
+              <CouponRow key={coupon._id} data={coupon} />
+            ))}
           </tbody>
         </table>
       </div>

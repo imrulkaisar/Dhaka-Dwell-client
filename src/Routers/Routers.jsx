@@ -13,6 +13,7 @@ import PaymentHistory from "../Pages/Dashboard/PaymentHistory";
 import ManageMembers from "../Pages/Dashboard/ManageMembers";
 import ManageCoupons from "../Pages/Dashboard/ManageCoupons";
 import AgreementRequests from "../Pages/Dashboard/AgreementRequests";
+import MakeAnnouncement from "../Pages/Dashboard/MakeAnnouncement";
 
 const Routers = createBrowserRouter([
   {
@@ -69,6 +70,10 @@ const Routers = createBrowserRouter([
       {
         path: "requests",
         element: <AgreementRequests />,
+      },
+      {
+        path: "create-announcement",
+        element: <MakeAnnouncement />,
       },
       {
         path: "*",

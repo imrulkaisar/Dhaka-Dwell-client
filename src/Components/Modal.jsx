@@ -7,7 +7,7 @@ const Modal = ({ children, onClose }) => {
   };
 
   return (
-    <div className="modal fixed top-0 left-0 w-[100%] h-[100%]">
+    <div className="modal fixed top-0 left-0 w-[100%] h-[100%] z-50">
       <div
         className="w-[100%] h-[100%] bg-overlay flex justify-center items-center"
         onClick={handleOverlayClick}

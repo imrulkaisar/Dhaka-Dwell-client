@@ -1,34 +1,49 @@
-const AnnouncementCard = () => {
+import {
+  IoInformationCircleSharp,
+  IoNotifications,
+  IoWarning,
+} from "react-icons/io5";
+
+const AnnouncementCard = ({ data }) => {
+  const { _id, title, message, type, recipients, seenby, createdAt } =
+    data || {};
+
+  const handleMarkAsRead = async () => {
+    // mark as read code
+    console.log("Mark as read!");
+  };
+
+  const handleDelete = async () => {
+    // announce deleting code
+    console.log("Announcement deleted!");
+  };
   return (
     <div
-      id="alert-additional-content-5"
-      className="p-4 border bg-white border-gray-300 rounded-lg bg-gray-5"
+      className={`relative p-4 border bg-blue-100 border-gray-300 rounded-lg bg-gray-5 ${
+        type === "warning" && "bg-yellow-100"
+      } ${type === "notice" && "bg-red-100"}`}
       role="alert"
     >
-      <div className="flex items-center">
-        <svg
-          className="flex-shrink-0 w-4 h-4 me-2"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-        >
-          <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-        </svg>
+      <div
+        className={`flex items-center text-blue-600 ${
+          type === "warning" && "text-yellow-600"
+        } ${type === "notice" && "text-red-600"}`}
+      >
+        {type === "info" && (
+          <IoInformationCircleSharp className="text-xl mr-1" />
+        )}
+        {type === "warning" && <IoWarning className="text-xl mr-1" />}
+        {type === "notice" && <IoNotifications className="text-xl mr-1" />}
         <span className="sr-only">Info</span>
-        <h3 className="text-lg font-medium text-gray-800">
-          This is a dark alert
-        </h3>
+        <h3 className="text-lg font-medium text-inherit">{title}</h3>
       </div>
-      <div className="mt-2 mb-4 text-sm text-gray-800">
-        More info about this info dark goes here. This example text is going to
-        run a bit longer so that you can see how spacing within an alert works
-        with this kind of content.
-      </div>
+      <div className="mt-2 mb-4 text-sm text-gray-800">{message}</div>
       <div className="flex">
         <button
           type="button"
-          className="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center"
+          className={`text-white bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center ${
+            type === "warning" && "bg-yellow-600"
+          } ${type === "notice" && "bg-red-600"}`}
         >
           <svg
             className="me-2 h-3 w-3 dark:text-gray-300"
@@ -43,13 +58,21 @@ const AnnouncementCard = () => {
         </button>
         <button
           type="button"
-          className="text-gray-800 bg-transparent border border-gray-700 hover:bg-gray-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center"
+          onClick={handleMarkAsRead}
+          className="text-gray-800 bg-transparent border border-gray-700 hover:bg-gray-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center capitalize"
           data-dismiss-target="#alert-additional-content-5"
           aria-label="Close"
         >
-          Dismiss
+          mark as read
         </button>
       </div>
+
+      <button
+        onClick={handleDelete}
+        className="absolute top-0 right-0 p-1 px-3 border bg-gray-100 rounded-full hover:bg-red-600 hover:text-white"
+      >
+        x
+      </button>
     </div>
   );
 };
