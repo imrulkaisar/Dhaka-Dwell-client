@@ -1,16 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
-import useAxiosPublic from "../Hooks/useAxiosPublic";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 
 const DashboardHeader = () => {
   const { user, logOut } = useAuth();
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
 
   const loadMemberDetails = async () => {
     try {
-      const res = await axiosPublic.get(`/members/member?email=${user.email}`);
+      const res = await axiosSecure.get(`/members/member?email=${user.email}`);
       return res.data;
     } catch (error) {
       console.error(error);

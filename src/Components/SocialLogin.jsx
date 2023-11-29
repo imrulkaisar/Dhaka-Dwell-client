@@ -16,6 +16,8 @@ const SocialLogin = () => {
   const state = location.state || {};
   const { pathname = "/", search = "" } = state;
 
+  console.log("state", state);
+
   const handleSocialLogin = (media) => {
     media()
       .then(async (res) => {

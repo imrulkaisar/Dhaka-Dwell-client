@@ -16,14 +16,14 @@
 
 import { useQuery } from "@tanstack/react-query";
 import UserRow from "../../Components/Dashboard/UserRow";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const ManageMembers = () => {
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
 
   const loadAllMembers = async () => {
     try {
-      const res = await axiosPublic.get("/members/get-all");
+      const res = await axiosSecure.get("/members/get-all");
       return res.data;
     } catch (error) {
       console.error(error);

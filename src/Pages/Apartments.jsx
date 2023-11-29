@@ -78,7 +78,7 @@ const Apartments = () => {
     setTotalPages(Math.ceil(totalNum / pageSize));
   }, [totalNum]);
 
-  console.log(totalPages, totalNum);
+  // console.log(totalPages, totalNum);
 
   return (
     <div>
@@ -115,8 +115,8 @@ const Apartments = () => {
                 <button
                   key={page}
                   onClick={() => setCurrentPage(page + 1)}
-                  className={`mx-2 px-4 py-2 border ${
-                    currentPage === page + 1 ? "bg-blue-500 text-white" : ""
+                  className={`mx-2 px-4 py-2 border rounded-md ${
+                    currentPage === page + 1 ? "bg-secondary text-white" : ""
                   }`}
                 >
                   {page + 1}

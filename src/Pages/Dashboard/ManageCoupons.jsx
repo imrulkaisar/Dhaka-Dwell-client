@@ -15,18 +15,18 @@ import { useQuery } from "@tanstack/react-query";
 import AddCouponForm from "../../Components/Dashboard/AddCouponForm";
 import Modal from "../../Components/Modal";
 import useModal from "../../Contexts/useModal";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import CouponRow from "../../Components/Dashboard/CouponRow";
 
 const ManageCoupons = () => {
   const { isOpen, openModal, closeModal } = useModal();
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
 
   const { data: coupons = [] } = useQuery({
     queryKey: ["all coupons"],
     queryFn: async () => {
       try {
-        const res = await axiosPublic.get("/coupons/get-all");
+        const res = await axiosSecure.get("/coupons/get-all");
 
         return res.data;
       } catch (error) {
@@ -35,7 +35,7 @@ const ManageCoupons = () => {
     },
   });
 
-  console.log(coupons);
+  // console.log(coupons);
   return (
     <div className="space-y-6">
       <div className="space-y-2">

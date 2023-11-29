@@ -1,13 +1,13 @@
-import useAxiosPublic from "./useAxiosPublic";
+import useAxiosSecure from "./useAxiosSecure";
 import useToast from "./useToast";
 
 const useDeleteMember = async () => {
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const { showToast } = useToast();
 
   const deleteMember = async (userId) => {
     try {
-      const res = await axiosPublic.delete(`/members/delete?id=${userId}`);
+      const res = await axiosSecure.delete(`/members/delete?id=${userId}`);
 
       if (res.data.success) {
         showToast("success", "User deleted successfully!");
