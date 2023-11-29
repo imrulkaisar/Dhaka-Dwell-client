@@ -3,10 +3,17 @@ import {
   IoNotifications,
   IoWarning,
 } from "react-icons/io5";
+import AdminContent from "../Protected/AdminContent";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useToast from "../../Hooks/useToast";
+import { useQueryClient } from "@tanstack/react-query";
 
 const AnnouncementCard = ({ data }) => {
   const { _id, title, message, type, recipients, seenby, createdAt } =
     data || {};
+  const axiosSecure = useAxiosSecure();
+  const { showToast } = useToast();
+  const queryClient = useQueryClient();
 
   const handleMarkAsRead = async () => {
     // mark as read code
@@ -16,6 +23,19 @@ const AnnouncementCard = ({ data }) => {
   const handleDelete = async () => {
     // announce deleting code
     console.log("Announcement deleted!");
+
+    try {
+      const res = await axiosSecure.delete(`/announcements/delete/${_id}`);
+
+      if (res.data.success) {
+        showToast("success", "Announcement deleted successfully!");
+        queryClient.invalidateQueries("all announcements");
+      } else {
+        showToast("error", "Something wrong! Please try again.");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <div
@@ -67,12 +87,14 @@ const AnnouncementCard = ({ data }) => {
         </button>
       </div>
 
-      <button
-        onClick={handleDelete}
-        className="absolute top-0 right-0 p-1 px-3 border bg-gray-100 rounded-full hover:bg-red-600 hover:text-white"
-      >
-        x
-      </button>
+      <AdminContent>
+        <button
+          onClick={handleDelete}
+          className="absolute top-0 right-0 p-1 px-3 border bg-gray-100 rounded-full hover:bg-red-600 hover:text-white"
+        >
+          x
+        </button>
+      </AdminContent>
     </div>
   );
 };

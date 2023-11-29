@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
+import { useNavigate } from "react-router-dom";
 import useModal from "../../Contexts/useModal";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useToast from "../../Hooks/useToast";
 import useUserData from "../../Hooks/useUserData";
 import Divider from "../Divider";
@@ -19,10 +20,11 @@ const ApartmentCard = ({ data }) => {
     rent,
   } = data || {};
 
-  const { _id: memberId = "" } = useUserData({});
+  const { _id: memberId = "", role } = useUserData({});
+  const navigate = useNavigate();
 
   const { isOpen, openModal, closeModal } = useModal();
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const { showToast } = useToast();
 
   const handleSendRequest = async () => {
@@ -31,8 +33,19 @@ const ApartmentCard = ({ data }) => {
       memberId,
     };
 
+    if (!memberId) {
+      navigate("/login");
+      return;
+    }
+
+    if (role === "admin") {
+      showToast("error", "Admin doesn't need to send request 😁");
+      closeModal();
+      return;
+    }
+
     try {
-      const res = await axiosPublic.post("/agreements/request", agreementData);
+      const res = await axiosSecure.post("/agreements/request", agreementData);
 
       if (res.data.success) {
         closeModal();
