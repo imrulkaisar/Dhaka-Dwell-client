@@ -16,7 +16,7 @@ const SocialLogin = () => {
   const state = location.state || {};
   const { pathname = "/", search = "" } = state;
 
-  console.log("state", state);
+  // console.log("state", state);
 
   const handleSocialLogin = (media) => {
     media()
@@ -29,7 +29,7 @@ const SocialLogin = () => {
             role: "user",
           };
 
-          console.log(memberData);
+          // console.log(memberData);
 
           // check if user already exist on the database;
           const isExistsCheck = await axiosPublic.get(
