@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useToast from "../../Hooks/useToast";
 import { useQueryClient } from "@tanstack/react-query";
 
 const AddCouponForm = () => {
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const { showToast } = useToast();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -32,7 +32,7 @@ const AddCouponForm = () => {
     };
 
     try {
-      const res = await axiosPublic.post("/coupons/create", couponData);
+      const res = await axiosSecure.post("/coupons/create", couponData);
 
       if (res.data.success) {
         showToast("success", "Coupon added.");

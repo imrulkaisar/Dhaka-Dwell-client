@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
+import { useNavigate } from "react-router-dom";
 import useModal from "../../Contexts/useModal";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useToast from "../../Hooks/useToast";
 import useUserData from "../../Hooks/useUserData";
 import Divider from "../Divider";
@@ -15,14 +16,15 @@ const ApartmentCard = ({ data }) => {
     block,
     number,
     description,
-    details,
+    facilities,
     rent,
   } = data || {};
 
-  const { _id: memberId = "" } = useUserData({});
+  const { _id: memberId = "", role } = useUserData({});
+  const navigate = useNavigate();
 
   const { isOpen, openModal, closeModal } = useModal();
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const { showToast } = useToast();
 
   const handleSendRequest = async () => {
@@ -31,8 +33,19 @@ const ApartmentCard = ({ data }) => {
       memberId,
     };
 
+    if (!memberId) {
+      navigate("/login");
+      return;
+    }
+
+    if (role === "admin") {
+      showToast("error", "Admin doesn't need to send request 😁");
+      closeModal();
+      return;
+    }
+
     try {
-      const res = await axiosPublic.post("/agreements/request", agreementData);
+      const res = await axiosSecure.post("/agreements/request", agreementData);
 
       if (res.data.success) {
         closeModal();
@@ -45,7 +58,7 @@ const ApartmentCard = ({ data }) => {
     }
   };
 
-  // console.log(Object.keys(data.details.gasFacilities).join(", "));
+  // console.log(Object.keys(data.facilities.gasFacilities).join(", "));
 
   return (
     <article className="min-h-min border rounded-lg overflow-hidden flex shadow-sm">
@@ -89,20 +102,20 @@ const ApartmentCard = ({ data }) => {
             </ul>
             <Divider text="Facilities" />
             <ul className="grid grid-cols-2 gap-3 text-sm list-disc marker:text-primary capitalize">
-              <li>{details?.rooms} Rooms</li>
-              <li>{details?.kitchen} Kitchens</li>
-              <li>{details?.balconies} Balconies</li>
+              <li>{facilities?.rooms} Rooms</li>
+              <li>{facilities?.kitchen} Kitchens</li>
+              <li>{facilities?.balconies} Balconies</li>
               <li>
-                {details?.toilets?.common + details?.toilets?.attached}(
-                {details?.toilets?.common} + {details?.toilets?.attached})
+                {facilities?.toilets?.common + facilities?.toilets?.attached}(
+                {facilities?.toilets?.common} + {facilities?.toilets?.attached})
                 Toilets
               </li>
-              {details?.gasFacilities?.available ? (
-                <li>{details?.gasFacilities?.type} gas</li>
+              {facilities?.gasFacilities?.available ? (
+                <li>{facilities?.gasFacilities?.type} gas</li>
               ) : (
                 ""
               )}
-              {details?.waterFacilities ? <li>Pure Water</li> : ""}
+              {facilities?.waterFacilities ? <li>Pure Water</li> : ""}
             </ul>
 
             <p className="font-semibold text-xl">Monthly Rent: ৳{rent}</p>

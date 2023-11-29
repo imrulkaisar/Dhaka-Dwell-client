@@ -14,6 +14,8 @@ import ManageMembers from "../Pages/Dashboard/ManageMembers";
 import ManageCoupons from "../Pages/Dashboard/ManageCoupons";
 import AgreementRequests from "../Pages/Dashboard/AgreementRequests";
 import MakeAnnouncement from "../Pages/Dashboard/MakeAnnouncement";
+import PrivateRouter from "./PrivateRouter";
+import AdminRouter from "./AdminRouter";
 
 const Routers = createBrowserRouter([
   {
@@ -40,11 +42,19 @@ const Routers = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: (
+      <PrivateRouter>
+        <Dashboard />
+      </PrivateRouter>
+    ),
     children: [
       {
         path: "index",
-        element: <Index />,
+        element: (
+          <PrivateRouter>
+            <Index />
+          </PrivateRouter>
+        ),
         index: true,
       },
       {
@@ -61,19 +71,35 @@ const Routers = createBrowserRouter([
       },
       {
         path: "users",
-        element: <ManageMembers />,
+        element: (
+          <AdminRouter>
+            <ManageMembers />
+          </AdminRouter>
+        ),
       },
       {
         path: "coupons",
-        element: <ManageCoupons />,
+        element: (
+          <AdminRouter>
+            <ManageCoupons />
+          </AdminRouter>
+        ),
       },
       {
         path: "requests",
-        element: <AgreementRequests />,
+        element: (
+          <AdminRouter>
+            <AgreementRequests />
+          </AdminRouter>
+        ),
       },
       {
         path: "create-announcement",
-        element: <MakeAnnouncement />,
+        element: (
+          <AdminRouter>
+            <MakeAnnouncement />
+          </AdminRouter>
+        ),
       },
       {
         path: "*",

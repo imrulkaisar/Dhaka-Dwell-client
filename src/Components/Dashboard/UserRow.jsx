@@ -1,4 +1,4 @@
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useToast from "../../Hooks/useToast";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -6,12 +6,12 @@ const UserRow = ({ data }) => {
   const { _id, name, email, image, role, apartmentIds, registerDate } =
     data || {};
   const { showToast } = useToast();
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
 
   const deleteMember = async (userId) => {
     try {
-      const res = await axiosPublic.delete(`/members/delete?id=${userId}`);
+      const res = await axiosSecure.delete(`/members/delete?id=${userId}`);
 
       if (res.data.success) {
         showToast("success", "User deleted successfully!");

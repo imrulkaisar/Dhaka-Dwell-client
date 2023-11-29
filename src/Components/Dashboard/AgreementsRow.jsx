@@ -2,14 +2,14 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import formatDateString from "../../utils/formateDateString";
 import { FaCheck } from "react-icons/fa6";
 import { LiaTimesSolid } from "react-icons/lia";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useToast from "../../Hooks/useToast";
 
 /* eslint-disable react/prop-types */
 const AgreementsRow = ({ data }) => {
   const { _id, apartmentId, memberId, status, agreementDate, submittedDate } =
     data || {};
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const { showToast } = useToast();
   const queryClient = useQueryClient();
 
@@ -19,7 +19,7 @@ const AgreementsRow = ({ data }) => {
     queryKey: ["apartment details", apartmentId],
     queryFn: async () => {
       try {
-        const res = await axiosPublic.get(
+        const res = await axiosSecure.get(
           `/apartments/get-apartment-by-id/${apartmentId}`
         );
 
@@ -34,7 +34,7 @@ const AgreementsRow = ({ data }) => {
     queryKey: ["Member details", memberId],
     queryFn: async () => {
       try {
-        const res = await axiosPublic.get(
+        const res = await axiosSecure.get(
           `/members/get-member-by-id/${memberId}`
         );
 
@@ -47,7 +47,7 @@ const AgreementsRow = ({ data }) => {
   });
 
   const changeUserRole = async () => {
-    const res = await axiosPublic.patch(`/members/change-role/${member._id}`, {
+    const res = await axiosSecure.patch(`/members/change-role/${member._id}`, {
       userRole: "member",
     });
 
@@ -58,7 +58,7 @@ const AgreementsRow = ({ data }) => {
 
   const handleAccept = async () => {
     try {
-      const res = await axiosPublic.patch(`/agreements/update/${_id}`);
+      const res = await axiosSecure.patch(`/agreements/update/${_id}`);
 
       if (res.data.success) {
         queryClient.invalidateQueries("all agreements");
@@ -75,7 +75,7 @@ const AgreementsRow = ({ data }) => {
   };
   const handleDelete = async () => {
     try {
-      const res = await axiosPublic.delete(`/agreements/delete/${_id}`);
+      const res = await axiosSecure.delete(`/agreements/delete/${_id}`);
 
       if (res.data.success) {
         queryClient.invalidateQueries("all agreements");

@@ -20,17 +20,17 @@
  */
 
 import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import AgreementsRow from "../../Components/Dashboard/AgreementsRow";
 
 const AgreementRequests = () => {
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
 
   const { data: agreements = [], isPending } = useQuery({
     queryKey: ["all agreements"],
     queryFn: async () => {
       try {
-        const res = await axiosPublic.get("/agreements/get-all");
+        const res = await axiosSecure.get("/agreements/get-all");
 
         return res.data;
       } catch (error) {

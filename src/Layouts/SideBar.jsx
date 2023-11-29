@@ -5,6 +5,8 @@ import { AiOutlineDashboard } from "react-icons/ai";
 import { TfiAnnouncement } from "react-icons/tfi";
 import { IoIosNotifications } from "react-icons/io";
 import { FaCreditCard, FaHistory, FaTags, FaUserFriends } from "react-icons/fa";
+import AdminContent from "../Components/Protected/AdminContent";
+import MemberContent from "../Components/Protected/MemberContent";
 
 const SideBar = () => {
   return (
@@ -35,41 +37,47 @@ const SideBar = () => {
             <TfiAnnouncement className="text-2xl" />
             <span className="ml-3">Announcements</span>
           </NavLink>
-          <NavLink
-            to="/dashboard/make-payment"
-            className="inline-flex items-center px-5 py-3 bg-gray-800 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700"
-          >
-            <FaCreditCard className="text-2xl" />
-            <span className="ml-2">Make Payment</span>
-          </NavLink>
-          <NavLink
-            to="/dashboard/payment-history"
-            className="inline-flex items-center px-5 py-3 bg-gray-800 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700"
-          >
-            <FaHistory className="text-2xl" />
-            <span className="ml-3 whitespace-nowrap">Payment History</span>
-          </NavLink>
-          <NavLink
-            to="/dashboard/users"
-            className="inline-flex items-center px-5 py-3 bg-gray-800 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700"
-          >
-            <FaUserFriends className="text-2xl" />
-            <span className="ml-3 whitespace-nowrap">All Users</span>
-          </NavLink>
-          <NavLink
-            to="/dashboard/coupons"
-            className="inline-flex items-center px-5 py-3 bg-gray-800 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700"
-          >
-            <FaTags className="text-2xl" />
-            <span className="ml-3 whitespace-nowrap">Coupons</span>
-          </NavLink>
-          <NavLink
-            to="/dashboard/requests"
-            className="inline-flex items-center px-5 py-3 bg-gray-800 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700"
-          >
-            <IoIosNotifications className="text-2xl" />
-            <span className="ml-3 whitespace-nowrap">Requests</span>
-          </NavLink>
+
+          <MemberContent>
+            <NavLink
+              to="/dashboard/make-payment"
+              className="inline-flex items-center px-5 py-3 bg-gray-800 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700"
+            >
+              <FaCreditCard className="text-2xl" />
+              <span className="ml-2">Make Payment</span>
+            </NavLink>
+            <NavLink
+              to="/dashboard/payment-history"
+              className="inline-flex items-center px-5 py-3 bg-gray-800 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700"
+            >
+              <FaHistory className="text-2xl" />
+              <span className="ml-3 whitespace-nowrap">Payment History</span>
+            </NavLink>
+          </MemberContent>
+
+          <AdminContent>
+            <NavLink
+              to="/dashboard/users"
+              className="inline-flex items-center px-5 py-3 bg-gray-800 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700"
+            >
+              <FaUserFriends className="text-2xl" />
+              <span className="ml-3 whitespace-nowrap">All Users</span>
+            </NavLink>
+            <NavLink
+              to="/dashboard/coupons"
+              className="inline-flex items-center px-5 py-3 bg-gray-800 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700"
+            >
+              <FaTags className="text-2xl" />
+              <span className="ml-3 whitespace-nowrap">Coupons</span>
+            </NavLink>
+            <NavLink
+              to="/dashboard/requests"
+              className="inline-flex items-center px-5 py-3 bg-gray-800 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700"
+            >
+              <IoIosNotifications className="text-2xl" />
+              <span className="ml-3 whitespace-nowrap">Requests</span>
+            </NavLink>
+          </AdminContent>
         </nav>
         {/* <div className="inline-flex items-center justify-center h-20 w-20 border-t border-gray-700">
           <button className="p-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">

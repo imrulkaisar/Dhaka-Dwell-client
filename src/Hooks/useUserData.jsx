@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "./useAuth";
-import useAxiosPublic from "./useAxiosPublic";
+import useAxiosSecure from "./useAxiosSecure";
 
 const useUserData = () => {
   const { user } = useAuth();
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const image = user?.photoURL || "";
 
   const loadMemberDetails = async () => {
     try {
-      const res = await axiosPublic.get(`/members/member?email=${user.email}`);
+      const res = await axiosSecure.get(`/members/member?email=${user.email}`);
       return res.data;
     } catch (error) {
       console.error(error);

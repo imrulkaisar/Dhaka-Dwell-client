@@ -13,11 +13,11 @@
  */
 
 import { useNavigate } from "react-router-dom";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import useToast from "../../Hooks/useToast";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const MakeAnnouncement = () => {
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const { showToast } = useToast();
 
@@ -38,7 +38,7 @@ const MakeAnnouncement = () => {
     };
 
     try {
-      const res = await axiosPublic.post(
+      const res = await axiosSecure.post(
         "/announcements/create",
         announcementData
       );
