@@ -28,29 +28,57 @@ import { useQuery } from "@tanstack/react-query";
 import PageHeader from "../Components/PageHeader";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import ApartmentCard from "../Components/Apartments/ApartmentCard";
+import { useEffect, useState } from "react";
 
 const Apartments = () => {
+  const [totalApartments, setTotalApartments] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const pageSize = 6;
+
   const axiosPublic = useAxiosPublic();
+
+  const getTotalApartNumber = async () => {
+    try {
+      const res = await axiosPublic.get("/apartments/total");
+      return res.data.total;
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const loadApartments = async () => {
     try {
-      const res = await axiosPublic.get("/apartments/get-all");
+      const res = await axiosPublic.get(
+        `/apartments/get-all?page=${currentPage}&size=${pageSize}`
+      );
       return res.data;
     } catch (error) {
       console.error(error);
     }
   };
 
+  const { data: totalNum = 0, isPending: isNumLoading } = useQuery({
+    queryKey: ["apartmentNum"],
+    queryFn: getTotalApartNumber,
+  });
   const { data: apartments = [], isPending } = useQuery({
-    queryKey: ["apartment"],
+    queryKey: ["apartment", currentPage, pageSize],
     queryFn: loadApartments,
+    enabled: totalNum > 0,
   });
 
-  console.log(apartments);
+  useEffect(() => {
+    if (!isNumLoading) {
+      setTotalApartments(totalNum);
+    }
+  }, [isNumLoading, totalNum]);
 
-  // useEffect(() => {
-  //   console.log(loadApartments());
-  // }, []);
+  useEffect(() => {
+    setTotalPages(Math.ceil(totalNum / pageSize));
+  }, [totalNum]);
+
+  console.log(totalPages, totalNum);
 
   return (
     <div>
@@ -62,7 +90,10 @@ const Apartments = () => {
       <section className="py-20">
         <div className="container-area space-y-12">
           <div className="text-center">
-            <p>Total {apartments.length} apartments</p>
+            <p>
+              Showing [{(currentPage - 1) * pageSize + 1}-
+              {currentPage * pageSize}] of Total {totalNum} apartments
+            </p>
           </div>
           <div className="grid lg:grid-cols-2 gap-8">
             {isPending && (
@@ -72,10 +103,27 @@ const Apartments = () => {
                 </p>
               </div>
             )}
-            {apartments.map((apartment) => (
-              <ApartmentCard key={apartment._id} data={apartment} />
-            ))}
+            {apartments.length > 0 &&
+              apartments.map((apartment) => (
+                <ApartmentCard key={apartment._id} data={apartment} />
+              ))}
           </div>
+
+          {totalPages > 1 && (
+            <div className="flex justify-center mt-4">
+              {[...Array(totalPages).keys()].map((page) => (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page + 1)}
+                  className={`mx-2 px-4 py-2 border ${
+                    currentPage === page + 1 ? "bg-blue-500 text-white" : ""
+                  }`}
+                >
+                  {page + 1}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </div>
