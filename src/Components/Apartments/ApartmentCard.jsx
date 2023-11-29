@@ -15,7 +15,7 @@ const ApartmentCard = ({ data }) => {
     block,
     number,
     description,
-    details,
+    facilities,
     rent,
   } = data || {};
 
@@ -45,7 +45,7 @@ const ApartmentCard = ({ data }) => {
     }
   };
 
-  // console.log(Object.keys(data.details.gasFacilities).join(", "));
+  // console.log(Object.keys(data.facilities.gasFacilities).join(", "));
 
   return (
     <article className="min-h-min border rounded-lg overflow-hidden flex shadow-sm">
@@ -89,20 +89,20 @@ const ApartmentCard = ({ data }) => {
             </ul>
             <Divider text="Facilities" />
             <ul className="grid grid-cols-2 gap-3 text-sm list-disc marker:text-primary capitalize">
-              <li>{details?.rooms} Rooms</li>
-              <li>{details?.kitchen} Kitchens</li>
-              <li>{details?.balconies} Balconies</li>
+              <li>{facilities?.rooms} Rooms</li>
+              <li>{facilities?.kitchen} Kitchens</li>
+              <li>{facilities?.balconies} Balconies</li>
               <li>
-                {details?.toilets?.common + details?.toilets?.attached}(
-                {details?.toilets?.common} + {details?.toilets?.attached})
+                {facilities?.toilets?.common + facilities?.toilets?.attached}(
+                {facilities?.toilets?.common} + {facilities?.toilets?.attached})
                 Toilets
               </li>
-              {details?.gasFacilities?.available ? (
-                <li>{details?.gasFacilities?.type} gas</li>
+              {facilities?.gasFacilities?.available ? (
+                <li>{facilities?.gasFacilities?.type} gas</li>
               ) : (
                 ""
               )}
-              {details?.waterFacilities ? <li>Pure Water</li> : ""}
+              {facilities?.waterFacilities ? <li>Pure Water</li> : ""}
             </ul>
 
             <p className="font-semibold text-xl">Monthly Rent: ৳{rent}</p>
