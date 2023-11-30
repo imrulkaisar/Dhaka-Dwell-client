@@ -1,14 +1,23 @@
+/* eslint-disable react/prop-types */
 import {
   PaymentElement,
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
-import useAuth from "../../Hooks/useAuth";
 import useToast from "../../Hooks/useToast";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { useNavigate } from "react-router-dom";
 
-const CheckoutForm = () => {
-  const { user } = useAuth();
+const CheckoutForm = ({ paymentData }) => {
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+
+  // // send price to parent component
+  // if (!isApartmentLoading) {
+  //   priceValue(parseInt(price));
+  // }
+
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [transactionId, setTransactionId] = useState(null);
@@ -52,10 +61,25 @@ const CheckoutForm = () => {
     });
   }, [stripe]);
 
+  const createPaymentHistory = async (data) => {
+    try {
+      const res = await axiosSecure.post("/payments/create", {
+        ...data,
+        transactionId,
+      });
+
+      console.log(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const form = e.target;
+
+    console.log(paymentData);
 
     // const memberId
 
@@ -69,9 +93,13 @@ const CheckoutForm = () => {
 
     const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
+      // confirmParams: {
+      //   // Make sure to change this to your payment completion page
+      //   // return_url: `${import.meta.env.VITE_LIVE_CLIENT}/dashboard/payment-history`,
+      //   return_url: `http://localhost:5173/dashboard/payment-history`,
+      // },
       confirmParams: {
-        // Make sure to change this to your payment completion page
-        // return_url: `${import.meta.env.VITE_LIVE_CLIENT}/dashboard/payment-history`,
+        redirect: "if_required",
         return_url: `http://localhost:5173/dashboard/payment-history`,
       },
     });
@@ -85,7 +113,10 @@ const CheckoutForm = () => {
       setMessage(error.message);
     } else {
       setTransactionId(paymentIntent.id);
+      await createPaymentHistory(paymentData);
       setMessage(`Transaction ID: ${paymentIntent.id}`);
+
+      navigate("/dashboard/payment-history");
     }
 
     setIsLoading(false);
@@ -110,7 +141,7 @@ const CheckoutForm = () => {
             id="name"
             name="name"
             placeholder="Member"
-            defaultValue={user?.displayName}
+            defaultValue={paymentData.memberName}
             readOnly={true}
           />
         </div>
@@ -124,7 +155,7 @@ const CheckoutForm = () => {
             id="name"
             name="name"
             placeholder="Email"
-            defaultValue={user?.email}
+            defaultValue={paymentData.memberEmail}
             readOnly={true}
           />
         </div>
@@ -138,7 +169,7 @@ const CheckoutForm = () => {
             id="name"
             name="name"
             placeholder="Floor"
-            defaultValue={`7`}
+            defaultValue={paymentData.floor}
             readOnly={true}
           />
         </div>
@@ -152,7 +183,7 @@ const CheckoutForm = () => {
             id="name"
             name="name"
             placeholder="Floor"
-            defaultValue={`7B`}
+            defaultValue={paymentData.block}
             readOnly={true}
           />
         </div>
@@ -166,7 +197,7 @@ const CheckoutForm = () => {
             id="name"
             name="name"
             placeholder="Apartment no"
-            defaultValue={`702`}
+            defaultValue={paymentData.apartmentNo}
             readOnly={true}
           />
         </div>
@@ -180,7 +211,7 @@ const CheckoutForm = () => {
             id="name"
             name="name"
             placeholder="Apartment no"
-            defaultValue={`December`}
+            defaultValue={paymentData.month}
             readOnly={true}
           />
         </div>
@@ -194,7 +225,7 @@ const CheckoutForm = () => {
             id="name"
             name="name"
             placeholder="Apartment no"
-            defaultValue={`৳15500`}
+            defaultValue={paymentData.price}
             readOnly={true}
           />
         </div>

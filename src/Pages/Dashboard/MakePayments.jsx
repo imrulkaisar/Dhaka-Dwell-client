@@ -22,27 +22,82 @@
 import useAuth from "../../Hooks/useAuth";
 import React, { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
-import {
-  Elements,
-  PaymentElement,
-  useElements,
-  useStripe,
-} from "@stripe/react-stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import CheckoutForm from "../../Components/Dashboard/CheckoutForm";
+import useUserData from "../../Hooks/useUserData";
+import { useQuery } from "@tanstack/react-query";
+import getCurrentMonthAndYear from "../../utils/getCurrentMonth";
 
 // Stripe test publishable API key.
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
 
 const MakePayments = () => {
   const axiosSecure = useAxiosSecure();
-
   const [clientSecret, setClientSecret] = useState("");
+
+  //  new code
+  const { _id: memberId, name: memberName, email: memberEmail } = useUserData();
+
+  const { data: agreements = [], isPending: isAgreementsPending } = useQuery({
+    queryKey: ["agreements", memberId],
+    queryFn: async () => {
+      try {
+        const res = await axiosSecure.get(
+          `/agreements/get-agreement?memberId=${memberId}&status=accepted`
+        );
+
+        return res.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    enabled: !!memberId,
+  });
+
+  const { apartmentId } = agreements[0] || {};
+
+  const { data: apartment = {}, isPending: isApartmentLoading } = useQuery({
+    queryKey: ["apartment details", apartmentId],
+    queryFn: async () => {
+      try {
+        const res = await axiosSecure.get(
+          `/apartments/get-apartment-by-id/${apartmentId}`
+        );
+
+        return res.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    enabled: !!apartmentId,
+  });
+
+  // console.log(apartment);
+
+  const { floor, block, number: apartmentNo, rent: price } = apartment || {};
+  const month = getCurrentMonthAndYear();
+
+  const paymentData = {
+    memberId,
+    memberName,
+    memberEmail,
+    apartmentId,
+    floor,
+    block,
+    month,
+    price,
+    // transactionId,
+  };
+
+  // old code
+
+  console.log("Intent Price:", price);
 
   // Create PaymentIntent
   const createPaymentIntent = async () => {
     try {
-      const res = await axiosSecure.post("/payments/intent", { price: 15000 });
+      const res = await axiosSecure.post("/payments/intent", { price });
 
       if (res.data.clientSecret) {
         setClientSecret(res.data.clientSecret);
@@ -53,7 +108,7 @@ const MakePayments = () => {
   };
 
   useEffect(() => {
-    createPaymentIntent();
+    if (price > 0) createPaymentIntent();
   }, []);
 
   const appearance = {
@@ -72,7 +127,7 @@ const MakePayments = () => {
       </div>
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm />
+          <CheckoutForm paymentData={paymentData} />
         </Elements>
       )}
     </div>
