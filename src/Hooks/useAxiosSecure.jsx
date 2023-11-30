@@ -4,7 +4,7 @@ import useAuth from "./useAuth";
 
 // Create a secure instance of Axios with custom configurations
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:3333", // replace server url
+  baseURL: import.meta.env.VITE_LIVE_SERVER || "http://localhost:3333",
 });
 
 // Custom hook to provide the secure Axios instance

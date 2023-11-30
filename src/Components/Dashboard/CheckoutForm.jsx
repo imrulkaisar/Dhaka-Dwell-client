@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import useToast from "../../Hooks/useToast";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useNavigate } from "react-router-dom";
+import Divider from "../Divider";
 
 const CheckoutForm = ({ paymentData }) => {
   const axiosSecure = useAxiosSecure();
@@ -225,12 +226,28 @@ const CheckoutForm = ({ paymentData }) => {
           />
         </div>
         <div className="col-span-2">
-          <PaymentElement
-            id="payment-element"
-            options={paymentElementOptions}
-          />
+          <div className="py-12 text-gray-500">
+            <Divider text="Payment Info" />
+          </div>
+          <div className="">
+            <PaymentElement
+              id="payment-element"
+              options={paymentElementOptions}
+            />
+          </div>
+          <div className="coupon-form py-10 flex gap-2">
+            <input
+              type="text"
+              name="coupon"
+              placeholder="Coupon Code"
+              className="form-input bg-white"
+            />
+            <button className="btn text-white bg-gray-800">Apply coupon</button>
+          </div>
         </div>
-        <button className="btn btn-primary">Pay rent</button>
+        <button type="submit" className="btn btn-primary">
+          Pay rent
+        </button>
       </form>
     </div>
   );

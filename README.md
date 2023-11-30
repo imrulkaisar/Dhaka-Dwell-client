@@ -1,34 +1,79 @@
-# react-starter
+# Dhaka Dwell - Client Side
 
-A versatile React starter template designed to kickstart your projects with ease. This template comes equipped with essential configurations, folder structures, and common dependencies, providing a solid foundation for building React applications. Save time on setup and focus on building incredible user interfaces and experiences.
+## Live link: [Dhaka Dwell](https://dhakadwell.surge.sh/)
 
-## Features:
+## Overview
 
-- **Configured Tooling:** Includes pre-configured tools such as Babel, Webpack, and ESLint for a seamless development experience.
-- **Ready-to-Use Components:** Jumpstart your development with pre-built and customizable React components.
-- **Optimized Folder Structure:** Follows a well-organized folder structure to enhance code maintainability and scalability.
-- **Styling Options:** Supports CSS, SCSS, or any styling approach of your choice.
-- **State Management:** Choose between local state management or integrate popular state management libraries like Redux.
-- **Routing:** Includes routing setup for easy navigation in single-page applications.
-- **Testing Configuration:** Configured with testing libraries such as Jest and React Testing Library for efficient testing workflows.
-- **Theming:** Easily customize the theme and styling to match your project requirements.
+Dhaka Dwell Client is the frontend component of the Dhaka Dwell project, providing a user-friendly interface for managing rental transactions and agreements for apartments in Dhaka.
 
-## Packages:
+## Key Features
 
-1. **Vite**:
-2. **React**:
-3. **React DOM**:
-4. **React Router DOM**:
-5. **TailwindCSS**:
-6. **firebase**:
-7. **react-icons**:
+- **User Dashboard**: Personalized dashboard for each user, displaying relevant information and actions.
+- **Payment Integration**: Seamlessly pay rent through secure Stripe integration.
+- **Agreement Details**: Access and manage rental agreement details with ease.
+- **Notification Center**: Receive real-time notifications for payment updates and agreement changes.
+- **Expense Tracking**: Monitor and track additional expenses associated with your rental property.
+- **Maintenance Requests**: Submit and track maintenance requests for quick issue resolution.
+- **Messaging System**: Communicate with landlords and fellow tenants through an integrated messaging system.
+- **Profile Customization**: Personalize your profile with a profile picture and contact information.
 
-## Usage:
+## Getting Started
 
-1.  Clone this repository.
-2.  Install dependencies using `npm install` or `yarn install`.
-3.  Start building your awesome React application!
+### Prerequisites
 
-## Contributions:
+- **Node.js**: Ensure Node.js is installed.
+- **API Server**: Make sure the Dhaka Dwell Server is running.
 
-Feel free to contribute by submitting issues, feature requests, or pull requests. Your feedback and contributions are highly appreciated.
+### Installation
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/your-username/dhaka-dwell-frontend.git
+   cd dhaka-dwell-frontend
+   ```
+2. **Install Dependencies:**
+
+
+    bashCopy code
+
+    `npm install`
+
+3.  **Configure Environment Variables:**
+
+    - Create a `.env` file in the project root.
+    - Set the API endpoint for the Dhaka Dwell Server (e.g., `REACT_APP_API_URL=http://localhost:your-server-port`).
+
+4.  **Start the Development Server:**
+
+    bashCopy code
+
+    `npm run dev`
+
+## Project Structure
+
+- **src/components**: Reusable UI components.
+- **src/pages**: Main application pages.
+- **src/utils**: Utility functions and helper modules.
+- **src/hooks**: Custom React hooks.
+- **src/routers**: project routers.
+
+## Technologies Used
+
+- **React**: Building the user interface.
+- **Stripe Elements**: Integrating secure payment elements.
+- **React Query**: Efficiently manage and fetch data.
+
+## Contributing
+
+We welcome contributions! Follow our [Contribution Guidelines]() to get started.
+
+## License
+
+This project is licensed under the [MIT License]().
+
+## Acknowledgments
+
+- **React Community**: Thanks to the amazing React community for building such a versatile library.
+- **Stripe**: Special thanks to [Stripe](https://stripe.com/) for their reliable payment processing services.
+
+Happy coding!

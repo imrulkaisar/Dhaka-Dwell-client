@@ -24,6 +24,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import MembersWidget from "../../Components/Dashboard/MembersWidget";
+import ApartmentsChartWidget from "../../Components/Dashboard/ApartmentsChartWidget";
 
 const AdminProfile = () => {
   const axiosSecure = useAxiosSecure();
@@ -41,7 +42,7 @@ const AdminProfile = () => {
     },
   });
 
-  const { data: totalMember } = useQuery({
+  const { data: totalMember, isLoading: isTotalMemberLoading } = useQuery({
     queryKey: ["allMemberNum"],
     queryFn: async () => {
       try {
@@ -54,7 +55,7 @@ const AdminProfile = () => {
     },
   });
 
-  const { data: totalApartments } = useQuery({
+  const { data: totalApartments, isLoading: isApartmentNumLoading } = useQuery({
     queryKey: ["apartmentNum"],
     queryFn: async () => {
       try {
@@ -67,7 +68,7 @@ const AdminProfile = () => {
     },
   });
 
-  console.log(totalUsers, totalMember);
+  if (isLoading || isTotalMemberLoading || isApartmentNumLoading) return;
 
   return (
     <div className="space-y-6">
@@ -180,16 +181,7 @@ const AdminProfile = () => {
         </div>
       </section>
       <section className="grid md:grid-cols-2 xl:grid-cols-4 xl:grid-rows-3 xl:grid-flow-col gap-6">
-        <div className="flex flex-col md:col-span-2 md:row-span-2 bg-white shadow rounded-lg">
-          <div className="px-6 py-5 font-semibold border-b border-gray-100">
-            The number of applied and left students per month
-          </div>
-          <div className="p-4 flex-grow">
-            <div className="flex items-center justify-center h-full px-4 py-16 text-gray-400 text-3xl font-semibold bg-gray-100 border-2 border-gray-200 border-dashed rounded-md">
-              Chart
-            </div>
-          </div>
-        </div>
+        <ApartmentsChartWidget />
         <MembersWidget />
         <div className="flex flex-col row-span-3 bg-white shadow rounded-lg">
           <div className="px-6 py-5 font-semibold border-b border-gray-100">
