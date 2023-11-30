@@ -83,11 +83,12 @@ const MakePayments = () => {
     memberName,
     memberEmail,
     apartmentId,
+    apartmentNo,
     floor,
     block,
     month,
     price,
-    // transactionId,
+    transactionId: clientSecret,
   };
 
   // old code

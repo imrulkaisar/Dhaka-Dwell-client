@@ -9,6 +9,7 @@ import useToast from "../../Hooks/useToast";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useNavigate } from "react-router-dom";
 import Divider from "../Divider";
+import { async } from "@firebase/util";
 
 const CheckoutForm = ({ paymentData }) => {
   const axiosSecure = useAxiosSecure();
@@ -22,6 +23,7 @@ const CheckoutForm = ({ paymentData }) => {
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [transactionId, setTransactionId] = useState(null);
+  const [couponCode, setCouponCode] = useState(null);
   const { showToast } = useToast();
 
   const stripe = useStripe();
@@ -66,10 +68,28 @@ const CheckoutForm = ({ paymentData }) => {
     try {
       const res = await axiosSecure.post("/payments/create", {
         ...data,
-        transactionId,
       });
 
       console.log(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCheckCoupon = async () => {
+    try {
+      if (!couponCode) {
+        showToast("error", "Insert Coupon code.");
+        return;
+      }
+
+      const res = await axiosSecure.get(`/coupons/check/${couponCode}`);
+
+      if (res.data.success) {
+        console.log(res.data);
+      } else {
+        showToast("error", res.data.message);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -241,8 +261,14 @@ const CheckoutForm = ({ paymentData }) => {
               name="coupon"
               placeholder="Coupon Code"
               className="form-input bg-white"
+              onChange={(e) => setCouponCode(e.target.value)}
             />
-            <button className="btn text-white bg-gray-800">Apply coupon</button>
+            <div
+              onClick={handleCheckCoupon}
+              className="btn text-white bg-gray-800 cursor-pointer"
+            >
+              Apply coupon
+            </div>
           </div>
         </div>
         <button type="submit" className="btn btn-primary">

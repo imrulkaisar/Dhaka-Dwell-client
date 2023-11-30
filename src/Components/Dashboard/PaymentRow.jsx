@@ -5,6 +5,9 @@ import useUserData from "../../Hooks/useUserData";
 
 const PaymentRow = ({ data }) => {
   const { role } = useUserData();
+  const axiosSecure = useAxiosSecure();
+  const { showToast } = useToast();
+  const queryClient = useQueryClient();
   const {
     _id,
     memberId,
@@ -19,14 +22,19 @@ const PaymentRow = ({ data }) => {
     transactionId,
     status,
   } = data || {};
-  // const { showToast } = useToast();
-  // const axiosSecure = useAxiosSecure();
-  // const queryClient = useQueryClient();
-
-  // console.log(Object.keys(data).join(", "));
 
   const handleAccept = async () => {
-    console.log("Payment accepted");
+    try {
+      const res = await axiosSecure.patch(`/payments/update/${_id}`, {
+        status: "successful",
+      });
+      if (res.data.success) {
+        queryClient.invalidateQueries("payment history");
+        showToast("success", "Payment accepted!");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -66,7 +74,11 @@ const PaymentRow = ({ data }) => {
           {month})
         </div>
       </td>
-      <td className="px-6 py-4">{transactionId}</td>
+      <td className="px-6 py-4">
+        {transactionId.length > 11
+          ? transactionId.substring(0, 11) + "..."
+          : transactionId}
+      </td>
       <td className="px-6 py-4">
         <div className="flex items-center">
           {status === "pending" && (

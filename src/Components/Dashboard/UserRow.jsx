@@ -33,6 +33,21 @@ const UserRow = ({ data }) => {
     }
   };
 
+  const handleMakeUser = async () => {
+    try {
+      const res = await axiosSecure.patch(`/members/update/${_id}`, {
+        role: "user",
+      });
+
+      if (res.data.success) {
+        queryClient.invalidateQueries("all members");
+        showToast("success", "User Role updated!");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   // console.log(Object.keys(data).join(", "));
 
   return (
@@ -78,7 +93,14 @@ const UserRow = ({ data }) => {
             Delete User
           </button>
         )}
-        {role === "member" && <button>Make User</button>}
+        {role === "member" && (
+          <button
+            onClick={handleMakeUser}
+            className="bg-yellow-500 text-white py-2 px-5 text-xs uppercase rounded-md"
+          >
+            Make User
+          </button>
+        )}
       </td>
     </tr>
   );
