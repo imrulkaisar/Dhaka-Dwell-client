@@ -7,6 +7,7 @@ import {
   signOut,
   updateProfile,
   deleteUser as deleteFirebaseUser,
+  GithubAuthProvider,
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../Authentication/Firebase.config";
@@ -37,6 +38,12 @@ const UserContextProvider = ({ children }) => {
   const signInWithGoogle = () => {
     setLoading(true);
     const provider = new GoogleAuthProvider();
+    return signInWithPopup(auth, provider);
+  };
+
+  const signInWithGithub = () => {
+    setLoading(true);
+    const provider = new GithubAuthProvider();
     return signInWithPopup(auth, provider);
   };
 
@@ -103,6 +110,7 @@ const UserContextProvider = ({ children }) => {
     createUser,
     logInWithEmailAndPassword,
     signInWithGoogle,
+    signInWithGithub,
     updateUser,
     logOut,
     deleteUser,

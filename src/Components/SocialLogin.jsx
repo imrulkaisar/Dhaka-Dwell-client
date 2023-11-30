@@ -6,7 +6,7 @@ import useCreateMember from "../Hooks/useCreateMember";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 const SocialLogin = () => {
-  const { signInWithGoogle } = useAuth();
+  const { signInWithGoogle, signInWithGithub } = useAuth();
   const { showToast } = useToast();
   const createMember = useCreateMember();
   const axiosPublic = useAxiosPublic();
@@ -56,16 +56,16 @@ const SocialLogin = () => {
 
   return (
     <div className="flex gap-5 justify-center">
-      <button className="border rounded-full w-12 aspect-square flex justify-center items-center">
-        <FaFacebookF className="text-xl" />
-      </button>
       <button
         onClick={() => handleSocialLogin(signInWithGoogle)}
         className="border rounded-full w-12 aspect-square flex justify-center items-center"
       >
         <FaGoogle className="text-xl" />
       </button>
-      <button className="border rounded-full w-12 aspect-square flex justify-center items-center">
+      <button
+        onClick={() => handleSocialLogin(signInWithGithub)}
+        className="border rounded-full w-12 aspect-square flex justify-center items-center"
+      >
         <FaGithub className="text-xl" />
       </button>
     </div>

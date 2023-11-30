@@ -91,13 +91,8 @@ const CheckoutForm = ({ paymentData }) => {
 
     setIsLoading(true);
 
-    const { error, paymentIntent } = await stripe.confirmPayment({
+    const { error } = await stripe.confirmPayment({
       elements,
-      // confirmParams: {
-      //   // Make sure to change this to your payment completion page
-      //   // return_url: `${import.meta.env.VITE_LIVE_CLIENT}/dashboard/payment-history`,
-      //   return_url: `http://localhost:5173/dashboard/payment-history`,
-      // },
       confirmParams: {
         redirect: "if_required",
         return_url: `http://localhost:5173/dashboard/payment-history`,
@@ -112,9 +107,9 @@ const CheckoutForm = ({ paymentData }) => {
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message);
     } else {
-      setTransactionId(paymentIntent.id);
+      // setTransactionId(paymentIntent.id);
       await createPaymentHistory(paymentData);
-      setMessage(`Transaction ID: ${paymentIntent.id}`);
+      // setMessage(`Transaction ID: ${paymentIntent.id}`);
 
       navigate("/dashboard/payment-history");
     }

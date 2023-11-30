@@ -17,49 +17,80 @@
  * [TODO] 2. 
  */
 
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { AiOutlineNotification } from "react-icons/ai";
+import { FaUsers } from "react-icons/fa6";
+import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import MembersWidget from "../../Components/Dashboard/MembersWidget";
+
 const AdminProfile = () => {
+  const axiosSecure = useAxiosSecure();
+
+  const { data: totalUsers, isLoading } = useQuery({
+    queryKey: ["allUsersNum"],
+    queryFn: async () => {
+      try {
+        const res = await axiosSecure.get("/members/total");
+        return res.data.total;
+      } catch (error) {
+        console.error(error);
+        throw new Error("Failed to fetch total users"); // throw an error to be caught by React Query
+      }
+    },
+  });
+
+  const { data: totalMember } = useQuery({
+    queryKey: ["allMemberNum"],
+    queryFn: async () => {
+      try {
+        const res = await axiosSecure.get("/members/total?role=member");
+        return res.data.total;
+      } catch (error) {
+        console.error(error);
+        throw new Error("Failed to fetch total members"); // throw an error to be caught by React Query
+      }
+    },
+  });
+
+  const { data: totalApartments } = useQuery({
+    queryKey: ["apartmentNum"],
+    queryFn: async () => {
+      try {
+        const res = await axiosSecure.get("/apartments/total");
+        return res.data.total;
+      } catch (error) {
+        console.error(error);
+        throw new Error("Failed to fetch total apartments"); // throw an error to be caught by React Query
+      }
+    },
+  });
+
+  console.log(totalUsers, totalMember);
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
         <div className="mr-6">
-          <h1 className="text-4xl font-semibold mb-2">Dashboard</h1>
-          <h2 className="text-gray-600 ml-0.5">Mobile UX/UI Design course</h2>
+          <h1 className="text-4xl font-semibold mb-2">Admin Dashboard</h1>
+          <h2 className="text-gray-600 ml-0.5">Dhaka Dwell House management</h2>
         </div>
         <div className="flex flex-wrap items-start justify-end -mb-3">
-          <button className="inline-flex px-5 py-3 text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600 rounded-md mb-3">
-            <svg
-              aria-hidden="true"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="flex-shrink-0 h-5 w-5 -ml-1 mt-0.5 mr-2"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-              />
-            </svg>
-            Manage dashboard
-          </button>
-          <button className="inline-flex px-5 py-3 text-white bg-purple-600 hover:bg-purple-700 focus:bg-purple-700 rounded-md ml-6 mb-3">
-            <svg
-              aria-hidden="true"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="flex-shrink-0 h-6 w-6 text-white -ml-1 mr-2"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-              />
-            </svg>
-            Create new dashboard
-          </button>
+          <Link
+            to="/dashboard/requests"
+            className="inline-flex px-5 py-3 text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600 rounded-md mb-3"
+          >
+            <IoMdNotificationsOutline className="text-2xl mr-1" />
+            Manage Agreement Requests
+          </Link>
+          <Link
+            to="/dashboard/create-announcement"
+            className="inline-flex px-5 py-3 text-white bg-purple-600 hover:bg-purple-700 focus:bg-purple-700 rounded-md ml-6 mb-3"
+          >
+            <AiOutlineNotification className="text-xl mr-2" />
+            New Announcement
+          </Link>
         </div>
       </div>
       <section className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
@@ -81,30 +112,21 @@ const AdminProfile = () => {
             </svg>
           </div>
           <div>
-            <span className="block text-2xl font-bold">62</span>
-            <span className="block text-gray-500">Students</span>
+            <span className="block text-2xl font-bold">
+              {totalUsers.toString().padStart(2, "0")}
+            </span>
+            <span className="block text-gray-500">Total Users</span>
           </div>
         </div>
         <div className="flex items-center p-8 bg-white shadow rounded-lg">
           <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-green-600 bg-green-100 rounded-full mr-6">
-            <svg
-              aria-hidden="true"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="h-6 w-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-              />
-            </svg>
+            <FaUsers className="text-2xl" />
           </div>
           <div>
-            <span className="block text-2xl font-bold">6.8</span>
-            <span className="block text-gray-500">Average mark</span>
+            <span className="block text-2xl font-bold">
+              {totalMember.toString().padStart(2, "0")}
+            </span>
+            <span className="block text-gray-500">Total Members</span>
           </div>
         </div>
         <div className="flex items-center p-8 bg-white shadow rounded-lg">
@@ -125,13 +147,13 @@ const AdminProfile = () => {
             </svg>
           </div>
           <div>
-            <span className="inline-block text-2xl font-bold">9</span>
+            <span className="inline-block text-2xl font-bold">
+              {totalApartments}
+            </span>
             <span className="inline-block text-xl text-gray-500 font-semibold">
-              (14%)
+              {/* (14%) */}
             </span>
-            <span className="block text-gray-500">
-              Underperforming students
-            </span>
+            <span className="block text-gray-500">Apartments</span>
           </div>
         </div>
         <div className="flex items-center p-8 bg-white shadow rounded-lg">
@@ -153,7 +175,7 @@ const AdminProfile = () => {
           </div>
           <div>
             <span className="block text-2xl font-bold">83%</span>
-            <span className="block text-gray-500">Finished homeworks</span>
+            <span className="block text-gray-500">Apartments Available</span>
           </div>
         </div>
       </section>
@@ -168,166 +190,7 @@ const AdminProfile = () => {
             </div>
           </div>
         </div>
-        <div className="flex items-center p-8 bg-white shadow rounded-lg">
-          <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-yellow-600 bg-yellow-100 rounded-full mr-6">
-            <svg
-              aria-hidden="true"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="h-6 w-6"
-            >
-              <path fill="#fff" d="M12 14l9-5-9-5-9 5 9 5z" />
-              <path
-                fill="#fff"
-                d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-              />
-            </svg>
-          </div>
-          <div>
-            <span className="block text-2xl font-bold">25</span>
-            <span className="block text-gray-500">Lections left</span>
-          </div>
-        </div>
-        <div className="flex items-center p-8 bg-white shadow rounded-lg">
-          <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-teal-600 bg-teal-100 rounded-full mr-6">
-            <svg
-              aria-hidden="true"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="h-6 w-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          </div>
-          <div>
-            <span className="block text-2xl font-bold">139</span>
-            <span className="block text-gray-500">Hours spent on lections</span>
-          </div>
-        </div>
-        <div className="row-span-3 bg-white shadow rounded-lg">
-          <div className="flex items-center justify-between px-6 py-5 font-semibold border-b border-gray-100">
-            <span>Students by average mark</span>
-            <button
-              type="button"
-              className="inline-flex justify-center rounded-md px-1 -mr-1 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-600"
-              id="options-menu"
-              aria-haspopup="true"
-              aria-expanded="true"
-            >
-              Descending
-              <svg
-                className="-mr-1 ml-1 h-5 w-5"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </button>
-            {/* Refer here for full dropdown menu code: https://tailwindui.com/components/application-ui/elements/dropdowns */}
-          </div>
-          <div className="overflow-y-auto" style={{ maxHeight: "24rem" }}>
-            <ul className="p-6 space-y-6">
-              <li className="flex items-center">
-                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
-                  <img
-                    src="https://randomuser.me/api/portraits/women/82.jpg"
-                    alt="Annette Watson profile picture"
-                  />
-                </div>
-                <span className="text-gray-600">Annette Watson</span>
-                <span className="ml-auto font-semibold">9.3</span>
-              </li>
-              <li className="flex items-center">
-                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
-                  <img
-                    src="https://randomuser.me/api/portraits/men/81.jpg"
-                    alt="Calvin Steward profile picture"
-                  />
-                </div>
-                <span className="text-gray-600">Calvin Steward</span>
-                <span className="ml-auto font-semibold">8.9</span>
-              </li>
-              <li className="flex items-center">
-                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
-                  <img
-                    src="https://randomuser.me/api/portraits/men/80.jpg"
-                    alt="Ralph Richards profile picture"
-                  />
-                </div>
-                <span className="text-gray-600">Ralph Richards</span>
-                <span className="ml-auto font-semibold">8.7</span>
-              </li>
-              <li className="flex items-center">
-                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
-                  <img
-                    src="https://randomuser.me/api/portraits/men/79.jpg"
-                    alt="Bernard Murphy profile picture"
-                  />
-                </div>
-                <span className="text-gray-600">Bernard Murphy</span>
-                <span className="ml-auto font-semibold">8.2</span>
-              </li>
-              <li className="flex items-center">
-                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
-                  <img
-                    src="https://randomuser.me/api/portraits/women/78.jpg"
-                    alt="Arlene Robertson profile picture"
-                  />
-                </div>
-                <span className="text-gray-600">Arlene Robertson</span>
-                <span className="ml-auto font-semibold">8.2</span>
-              </li>
-              <li className="flex items-center">
-                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
-                  <img
-                    src="https://randomuser.me/api/portraits/women/77.jpg"
-                    alt="Jane Lane profile picture"
-                  />
-                </div>
-                <span className="text-gray-600">Jane Lane</span>
-                <span className="ml-auto font-semibold">8.1</span>
-              </li>
-              <li className="flex items-center">
-                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
-                  <img
-                    src="https://randomuser.me/api/portraits/men/76.jpg"
-                    alt="Pat Mckinney profile picture"
-                  />
-                </div>
-                <span className="text-gray-600">Pat Mckinney</span>
-                <span className="ml-auto font-semibold">7.9</span>
-              </li>
-              <li className="flex items-center">
-                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
-                  <img
-                    src="https://randomuser.me/api/portraits/men/75.jpg"
-                    alt="Norman Walters profile picture"
-                  />
-                </div>
-                <span className="text-gray-600">Norman Walters</span>
-                <span className="ml-auto font-semibold">7.7</span>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <MembersWidget />
         <div className="flex flex-col row-span-3 bg-white shadow rounded-lg">
           <div className="px-6 py-5 font-semibold border-b border-gray-100">
             Students by type of studying

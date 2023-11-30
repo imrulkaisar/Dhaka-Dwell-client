@@ -14,6 +14,7 @@ const useAuth = () => {
     createUser,
     logInWithEmailAndPassword,
     signInWithGoogle,
+    signInWithGithub,
     updateUser,
     logOut,
   } = useContext(UserContext);
@@ -24,6 +25,7 @@ const useAuth = () => {
     createUser,
     logInWithEmailAndPassword,
     signInWithGoogle,
+    signInWithGithub,
     updateUser,
     logOut,
   };
