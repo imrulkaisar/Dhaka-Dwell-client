@@ -63,7 +63,7 @@ const MakeAnnouncement = () => {
 
       {/*  */}
       <form
-        className="grid md:grid-cols-2 gap-5 max-w-3xl"
+        className="flex flex-col md:grid md:grid-cols-2 gap-5 max-w-3xl"
         onSubmit={handleAddAnnouncement}
       >
         <div className="form-group col-span-2">

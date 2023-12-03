@@ -77,17 +77,17 @@ const AdminProfile = () => {
           <h1 className="text-4xl font-semibold mb-2">Admin Dashboard</h1>
           <h2 className="text-gray-600 ml-0.5">Dhaka Dwell House management</h2>
         </div>
-        <div className="flex flex-wrap items-start justify-end -mb-3">
+        <div className="flex flex-wrap items-start justify-center lg:justify-end gap-3">
           <Link
             to="/dashboard/requests"
-            className="inline-flex px-5 py-3 text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600 rounded-md mb-3"
+            className="inline-flex px-5 py-3 text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600 rounded-md"
           >
             <IoMdNotificationsOutline className="text-2xl mr-1" />
-            Manage Agreement Requests
+            Agreement Requests
           </Link>
           <Link
             to="/dashboard/create-announcement"
-            className="inline-flex px-5 py-3 text-white bg-purple-600 hover:bg-purple-700 focus:bg-purple-700 rounded-md ml-6 mb-3"
+            className="inline-flex px-5 py-3 text-white bg-purple-600 hover:bg-purple-700 focus:bg-purple-700 rounded-md"
           >
             <AiOutlineNotification className="text-xl mr-2" />
             New Announcement
@@ -180,10 +180,10 @@ const AdminProfile = () => {
           </div>
         </div>
       </section>
-      <section className="grid md:grid-cols-2 xl:grid-cols-4 xl:grid-rows-3 xl:grid-flow-col gap-6">
+      <section className="grid md:grid-cols-2 xl:grid-cols-4 xl:grid-rows-3 gap-6">
         <ApartmentsChartWidget />
         <MembersWidget />
-        <div className="flex flex-col row-span-3 bg-white shadow rounded-lg">
+        <div className="flex flex-col xl:col-span-4 row-span-3 bg-white shadow rounded-lg">
           <div className="px-6 py-5 font-semibold border-b border-gray-100">
             Students by type of studying
           </div>

@@ -47,7 +47,7 @@ const ManageCoupons = () => {
 
       {/* table */}
 
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div className="relative max-w-[90vw] overflow-x-auto shadow-md sm:rounded-lg">
         <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
           <div>
             <button
@@ -114,7 +114,7 @@ const ManageCoupons = () => {
               <th scope="col" className="px-6 py-3">
                 Coupon Code
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-6 py-3 whitespace-nowrap">
                 Discount Amount
               </th>
               <th scope="col" className="px-6 py-3">

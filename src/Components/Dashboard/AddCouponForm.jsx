@@ -48,7 +48,10 @@ const AddCouponForm = () => {
     console.log(couponData);
   };
   return (
-    <form className="grid md:grid-cols-2 gap-5" onSubmit={handleSubmit}>
+    <form
+      className="flex flex-col md:grid md:grid-cols-2 gap-5"
+      onSubmit={handleSubmit}
+    >
       <div className="form-group col-span-2">
         <label htmlFor="code" className="sr-only">
           Coupon Code

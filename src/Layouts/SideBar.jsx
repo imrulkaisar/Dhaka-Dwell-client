@@ -8,9 +8,9 @@ import { FaCreditCard, FaHistory, FaTags, FaUserFriends } from "react-icons/fa";
 import AdminContent from "../Components/Protected/AdminContent";
 import MemberContent from "../Components/Protected/MemberContent";
 
-const SideBar = () => {
+const SideBar = ({ onClick }) => {
   return (
-    <aside className="hidden sm:flex sm:flex-col">
+    <>
       <Link
         to="/"
         className="inline-flex items-center justify-center bg-gray-700 w-full text-gray-200 py-5"
@@ -18,7 +18,10 @@ const SideBar = () => {
         <img className="w-12 bg-white rounded-full" src={LogoIcon} alt="" />
         {/* <span>Dhaka Dwell</span> */}
       </Link>
-      <div className="flex-grow flex flex-col justify-between text-gray-500 bg-gray-800">
+      <div
+        onClick={() => onClick(false)}
+        className="flex-grow flex flex-col justify-between text-gray-500 bg-gray-800"
+      >
         <nav
           id="side-nav"
           className="flex flex-col gap-[2px] border-b-2 border-t-2 border-gray-700 bg-gray-700"
@@ -105,7 +108,7 @@ const SideBar = () => {
           </button>
         </div> */}
       </div>
-    </aside>
+    </>
   );
 };
 

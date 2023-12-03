@@ -39,12 +39,12 @@ const Header = () => {
       <div className="container-area flex justify-between items-center">
         <Logo />
         <div className="flex items-center justify-center gap-8">
-          <NavLink to="/apartments">
+          <NavLink to="/apartments" className="hidden md:block">
             <span className="text-sm uppercase tracking-widest">
               Our Apartments
             </span>
           </NavLink>
-          <div className="divider w-[2px] h-4 bg-white"></div>
+          <div className="hidden md:block divider w-[2px] h-4 bg-white"></div>
           <div className="user">
             {!loading && user?.accessToken ? (
               <div className="relative">
@@ -61,7 +61,13 @@ const Header = () => {
                       {user?.displayName}
                     </h4>
                     <hr />
-                    <div className="flex flex-col gap-2">
+                    <div
+                      onClick={() => setShowPopup(false)}
+                      className="flex flex-col gap-2"
+                    >
+                      <NavLink to="/apartments" className="block md:hidden">
+                        <span className="">Our Apartments</span>
+                      </NavLink>
                       <Link to="/dashboard/index">Dashboard</Link>
                       <button
                         className="text-sm w-full bg-dark text-white py-1 rounded-md"

@@ -33,7 +33,9 @@ import DashboardHeader from "./DashboardHeader";
 const Dashboard = () => {
   return (
     <div className="flex bg-gray-100 min-h-screen">
-      <SideBar />
+      <aside className="hidden sm:flex sm:flex-col">
+        <SideBar />
+      </aside>
       <div className="flex-grow text-gray-800">
         <DashboardHeader />
         <main className="p-6 sm:p-10">

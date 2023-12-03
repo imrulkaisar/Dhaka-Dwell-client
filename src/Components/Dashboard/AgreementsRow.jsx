@@ -170,9 +170,11 @@ const AgreementsRow = ({ data }) => {
       </td>
       <td className="px-6 py-4">
         <div onClick={handleAccept} className="flex flex-col gap-1 items-end">
-          <button className="w-8 aspect-square text-lg border flex items-center justify-center rounded-full text-green-600 hover:bg-green-600 hover:text-white">
-            <FaCheck />
-          </button>
+          {status !== "accepted" && (
+            <button className="w-8 aspect-square text-lg border flex items-center justify-center rounded-full text-green-600 hover:bg-green-600 hover:text-white">
+              <FaCheck />
+            </button>
+          )}
           <button
             onClick={handleDelete}
             className="w-8 aspect-square text-lg border flex items-center justify-center rounded-full text-red-600 hover:bg-red-600 hover:text-white"

@@ -50,7 +50,7 @@ const AgreementRequests = () => {
 
       {/* table */}
 
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div className="relative max-w-[90vw] overflow-x-auto shadow-md sm:rounded-lg">
         <div className="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4">
           <div>
             <button
@@ -168,7 +168,10 @@ const AgreementRequests = () => {
               <th scope="col" className="px-6 py-3">
                 User Info
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th
+                scope="col"
+                className="px-6 py-3 whitespace-nowrap min-w-[250px]"
+              >
                 Apartment Info
               </th>
               <th scope="col" className="px-6 py-3">

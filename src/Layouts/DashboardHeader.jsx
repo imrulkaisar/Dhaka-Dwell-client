@@ -2,11 +2,14 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import SideBar from "./SideBar";
 
 const DashboardHeader = () => {
   const { user, logOut } = useAuth();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
+  const [showPopup, setShowPopup] = useState(false);
 
   const loadMemberDetails = async () => {
     try {
@@ -34,9 +37,16 @@ const DashboardHeader = () => {
     }
   };
 
+  const handleOnClick = (value) => {
+    setShowPopup(value);
+  };
+
   return (
     <header className="flex items-center h-20 px-6 sm:px-10 bg-white">
-      <button className="block sm:hidden relative flex-shrink-0 p-2 mr-2 text-gray-600 hover:bg-gray-100 hover:text-gray-800 focus:bg-gray-100 focus:text-gray-800 rounded-full">
+      <button
+        onClick={() => setShowPopup(!showPopup)}
+        className="block sm:hidden relative flex-shrink-0 p-2 mr-2 text-gray-600 hover:bg-gray-100 hover:text-gray-800 focus:bg-gray-100 focus:text-gray-800 rounded-full"
+      >
         <span className="sr-only">Menu</span>
         <svg
           aria-hidden="true"
@@ -53,6 +63,14 @@ const DashboardHeader = () => {
           />
         </svg>
       </button>
+
+      {/* mobile menu */}
+      {showPopup && (
+        <div className="absolute z-50 top-0 left-0 min-h-[900px] bg-gray-900">
+          <SideBar onClick={handleOnClick} />
+        </div>
+      )}
+
       <div className="relative w-full max-w-md sm:-ml-2">
         <svg
           aria-hidden="true"

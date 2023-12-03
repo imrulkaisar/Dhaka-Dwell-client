@@ -17,7 +17,7 @@ const CouponSection = () => {
         <div>
           <img src={festivalImage} alt="" />
         </div>
-        <div>
+        <div className="text-center lg:text-left">
           <h2 className="section-heading">Festival Coupon Extravaganza</h2>
           <p className="py-5 text-secondary">
             Experience the joy of savings with our Festival Coupon! Specially

@@ -67,7 +67,7 @@ const Register = () => {
       />
 
       <section className="py-28 bg-bgGray">
-        <div className="container-area flex gap-10 justify-start">
+        <div className="container-area flex flex-col lg:flex-row gap-10 justify-start">
           <div className="w-full max-w-sm flex flex-col items-center border px-10 py-16 rounded-lg shadow-lg space-y-8 bg-white">
             <img
               className="w-28 aspect-square rounded-full object-cover border-2"

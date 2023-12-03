@@ -12,7 +12,7 @@ const Modal = ({ children, onClose }) => {
         className="w-[100%] h-[100%] bg-overlay flex justify-center items-center"
         onClick={handleOverlayClick}
       >
-        <div className="modal-content bg-white p-8 rounded-lg relative overflow-hidden">
+        <div className="modal-content max-w-[85vw] max-h-[90vh] overflow-y-auto bg-white p-8 rounded-lg relative overflow-hidden">
           {children}
           <button
             className="close-button absolute top-0 right-0 text-sm px-2 bg-red-600 text-white"

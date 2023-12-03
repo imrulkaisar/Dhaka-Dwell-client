@@ -45,7 +45,7 @@ const PaymentHistory = () => {
       </div>
 
       {/* Table */}
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div className="relative max-w-[90vw] overflow-x-auto shadow-md sm:rounded-lg">
         <div className="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4">
           <div>
             <button

@@ -41,7 +41,7 @@ const Login = () => {
       />
 
       <section className="py-28 bg-bgGray">
-        <div className="container-area flex gap-10 justify-start">
+        <div className="container-area flex flex-col-reverse lg:flex-row gap-10 justify-start">
           <div className="">
             <img
               src="https://img.freepik.com/premium-vector/login-concept-illustration_65141-421.jpg"

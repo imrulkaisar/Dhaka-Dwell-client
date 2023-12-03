@@ -27,7 +27,7 @@ const Announcements = () => {
     },
   });
 
-  // console.log(announcements);
+  console.log(Object.keys(announcements[0]).join(", "));
   return (
     <div className="space-y-6">
       <div className="space-y-2">

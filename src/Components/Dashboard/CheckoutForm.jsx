@@ -24,6 +24,8 @@ const CheckoutForm = ({ paymentData }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [transactionId, setTransactionId] = useState(null);
   const [couponCode, setCouponCode] = useState(null);
+  const [price, setPrice] = useState(paymentData.price);
+  const [couponApplied, setCouponApplied] = useState(false);
   const { showToast } = useToast();
 
   const stripe = useStripe();
@@ -68,6 +70,7 @@ const CheckoutForm = ({ paymentData }) => {
     try {
       const res = await axiosSecure.post("/payments/create", {
         ...data,
+        price,
       });
 
       console.log(res.data);
@@ -76,7 +79,8 @@ const CheckoutForm = ({ paymentData }) => {
     }
   };
 
-  const handleCheckCoupon = async () => {
+  const handleCheckCoupon = async (e) => {
+    e.preventDefault();
     try {
       if (!couponCode) {
         showToast("error", "Insert Coupon code.");
@@ -86,7 +90,14 @@ const CheckoutForm = ({ paymentData }) => {
       const res = await axiosSecure.get(`/coupons/check/${couponCode}`);
 
       if (res.data.success) {
-        console.log(res.data);
+        console.log(res.data.foundCoupon);
+        const couponDetails = res.data.foundCoupon;
+        const discount = couponDetails.discount;
+        const discountPrice = Math.ceil(price / discount);
+
+        setPrice((prePrice) => prePrice - discountPrice);
+
+        setCouponApplied(true);
       } else {
         showToast("error", res.data.message);
       }
@@ -137,7 +148,7 @@ const CheckoutForm = ({ paymentData }) => {
 
     setIsLoading(false);
 
-    showToast("success", message);
+    showToast("success", "Payment Done! Wait for confirmation.");
   };
 
   return (
@@ -241,7 +252,7 @@ const CheckoutForm = ({ paymentData }) => {
             id="name"
             name="name"
             placeholder="Apartment no"
-            defaultValue={paymentData.price}
+            value={price}
             readOnly={true}
           />
         </div>
@@ -262,13 +273,15 @@ const CheckoutForm = ({ paymentData }) => {
               placeholder="Coupon Code"
               className="form-input bg-white"
               onChange={(e) => setCouponCode(e.target.value)}
+              disabled={couponApplied}
             />
-            <div
+            <button
               onClick={handleCheckCoupon}
-              className="btn text-white bg-gray-800 cursor-pointer"
+              className="btn text-white bg-gray-800 cursor-pointer disabled:bg-gray-400"
+              disabled={couponApplied}
             >
               Apply coupon
-            </div>
+            </button>
           </div>
         </div>
         <button type="submit" className="btn btn-primary">

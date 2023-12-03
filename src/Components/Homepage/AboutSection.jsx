@@ -10,13 +10,15 @@ const AboutSection = () => {
       }}
     >
       <div className="container-area text-center max-w-4xl">
-        <h2 className="section-heading leading-tight">
+        <h2 className="section-heading leading-tight text-4xl lg:text-5xl">
           Elevate Your Living Experience at{" "}
           <span className="text-primary">DhakaDwell</span>
         </h2>
         <Divider text="<>" />
-        <p className="text-xl">A Testament to Luxury and Comfort in Gulshan</p>
-        <p className="py-8 leading-relaxed lg:px-5 text-secondary">
+        <p className="text-xl px-10 lg:px-0">
+          A Testament to Luxury and Comfort in Gulshan
+        </p>
+        <p className="py-8 leading-relaxed px-5 text-secondary">
           Welcome to DhakaDwell, where modern living meets timeless comfort in
           the heart of Gulshan. Our architectural masterpiece stands as a
           testament to elegance and sophistication, offering residents a unique

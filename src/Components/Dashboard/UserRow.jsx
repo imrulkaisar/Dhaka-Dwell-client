@@ -88,7 +88,7 @@ const UserRow = ({ data }) => {
         {role === "user" && (
           <button
             onClick={handleDeletion}
-            className="bg-red-500 text-white py-2 px-5 text-xs uppercase rounded-md"
+            className="bg-red-500 text-white py-2 px-5 text-xs uppercase rounded-md whitespace-nowrap"
           >
             Delete User
           </button>
@@ -96,7 +96,7 @@ const UserRow = ({ data }) => {
         {role === "member" && (
           <button
             onClick={handleMakeUser}
-            className="bg-yellow-500 text-white py-2 px-5 text-xs uppercase rounded-md"
+            className="bg-yellow-500 text-white py-2 px-5 text-xs uppercase rounded-md whitespace-nowrap"
           >
             Make User
           </button>

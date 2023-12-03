@@ -61,11 +61,13 @@ const ApartmentCard = ({ data }) => {
   // console.log(Object.keys(data.facilities.gasFacilities).join(", "));
 
   return (
-    <article className="min-h-min border rounded-lg overflow-hidden flex shadow-sm">
-      <img className="w-1/3 h-full object-cover" src={image} alt="" />
-      <div className="px-5 py-3 flex-grow space-y-2">
-        <h4 className="font-semibold font-display">{name}</h4>
-        <div className="text-xs">{description}</div>
+    <article className="min-h-min border rounded-lg overflow-hidden flex flex-col md:flex-row shadow-sm">
+      <img className="w-full md:w-1/3 h-full object-cover" src={image} alt="" />
+      <div className="text-center md:text-left px-5 py-5 md:py-3 flex-grow space-y-2 flex flex-col justify-center">
+        <h4 className="text-2xl md:text-base font-semibold font-display">
+          {name}
+        </h4>
+        <div className="text-base md:text-xs">{description}</div>
         <ul className="flex gap-x-5 flex-wrap gap-y-1 text-sm list-disc list-inside marker:text-primary">
           <li>
             Floor: <b>{floor}</b>
@@ -78,7 +80,7 @@ const ApartmentCard = ({ data }) => {
           </li>
         </ul>
       </div>
-      <div className="p-5 flex flex-col justify-center items-center gap-5 border-l">
+      <div className="p-5 flex flex-col justify-center items-center gap-5 border-t md:border-t-none border-l-none md:border-l">
         <p className="text-xl font-medium">৳{rent}</p>
         <button
           onClick={openModal}
